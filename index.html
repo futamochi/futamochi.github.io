@@ -55,7 +55,7 @@ if(app==="tiktok"||/(?:\?|&)s=tt\b/.test(q))h.classList.add("from-tt");
 })();
 </script>
 <style>
-@font-face{font-family:"FM Display";src:url(assets/fonts/mplusr-black-sub.woff2) format("woff2");font-weight:900;font-display:swap}
+@font-face{font-family:"FM Display";src:url(assets/fonts/mplusr-black-sub.woff) format("woff");font-weight:900;font-display:swap}
 :root{
   --azuki:#3A1F29;--azuki-2:#2B1A1F;--azuki-3:#4A2633;--azuki-4:#5C3644;
   --cream:#FBF6F0;--paper:#FFF8F1;--ink:#2B1A1F;--ink-2:#66575C;--ink-3:#726267;
@@ -71,7 +71,8 @@ if(app==="tiktok"||/(?:\?|&)s=tt\b/.test(q))h.classList.add("from-tt");
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:var(--azuki-2);-webkit-text-size-adjust:100%;scroll-snap-type:y proximity;scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-body{background:var(--azuki-2);color:#fff;font-family:var(--body);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;font-feature-settings:"palt";word-break:keep-all;overflow-wrap:anywhere;line-break:strict}
+body{background:var(--azuki-2);color:#fff;font-family:var(--body);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;font-feature-settings:"palt";overflow-wrap:anywhere;line-break:strict}
+html{overflow-x:hidden}@supports(overflow:clip){html,body{overflow-x:clip}}
 h1,h2,h3,.stk,.lede,.say,blockquote{text-wrap:balance}
 p,li,figcaption,small{text-wrap:pretty}
 img,svg{display:block}
@@ -1227,7 +1228,7 @@ footer nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 8p
     </div>
     <p class="qres" id="qres" aria-live="polite"><span class="qlock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>えらぶと、​はるとの​答えがひらく</span></p>
   </div>
-  <p class="qnote">自分が​答えると、​相手の答えがひらく。​質問は​500以上、​13のカテゴリから​毎日ひとつ。</p>
+  <p class="qnote">自分が​答えると、​相手の答えがひらく。​質問はたっぷり。​13のカテゴリから​毎日ひとつ、​これからも​増えていく。</p>
   <div class="ttq">
     <b>TikTokで​出してる​質問、​たとえば</b>
     <div class="ttq-r"><span>彼氏に​聞いたら、​たぶん​笑う質問5つ</span><span>寝る前に​恋人に​聞きたい、​甘い質問5つ</span><span>勇気を​出して​彼女に​聞いてみて。​深い質問5つ</span></div>
