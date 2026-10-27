@@ -819,11 +819,40 @@ footer nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 8p
 /* ---------- dock ---------- */
 .dock{position:fixed;z-index:50;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:var(--col);padding:0 12px calc(10px + var(--safe-b));transition:transform .45s var(--spring),opacity .3s}
 .dock.away{transform:translate(-50%,130%);opacity:0;pointer-events:none}
-/* 最初の画面が「1枚で終わり」に見えないように: ドックの上の「つづき」の合図（下へ読みはじめたら消える） */
-.cue{position:fixed;z-index:49;left:50%;bottom:calc(var(--bar-h) + 20px + var(--safe-b));transform:translateX(-50%);display:flex;align-items:center;gap:7px;padding:7px 15px 8px 12px;border-radius:999px;background:rgba(26,14,19,.62);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:#fff;font-size:13px;font-weight:900;letter-spacing:.02em;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.28),inset 0 0 0 1px rgba(255,255,255,.14);pointer-events:auto;cursor:pointer;transition:opacity .35s,transform .45s var(--spring)}
-.cue svg{width:18px;height:18px;flex:none}
-.cue.gone{opacity:0;transform:translate(-50%,14px);pointer-events:none}
-@media (prefers-reduced-motion:no-preference){.cue svg{animation:cueb 1.6s ease-in-out infinite}@keyframes cueb{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}}
+/* 最初の画面が「1枚で終わり」に見えないように: ドックの上の大きな「つづき」の合図。自分で下へ読みはじめるまで出しておく */
+.cue{position:fixed;z-index:49;left:50%;bottom:calc(var(--bar-h) + 18px + var(--safe-b));transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:8px 18px 9px 8px;border-radius:999px;background:var(--sakura);color:var(--ink);font-family:var(--display);font-size:16px;font-weight:900;letter-spacing:.01em;white-space:nowrap;box-shadow:0 5px 0 #D9708E,0 14px 30px rgba(0,0,0,.4);pointer-events:auto;cursor:pointer;transition:opacity .35s,transform .45s var(--spring)}
+.cue img{width:34px;height:34px;flex:none;margin:-8px 0 -6px}
+.cue .ar{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;flex:none;margin-left:2px}
+.cue .ar svg{width:18px;height:18px}
+.cue .t2{display:none}.cue.more .t1{display:none}.cue.more .t2{display:inline}
+.cue.gone{opacity:0;transform:translate(-50%,24px);pointer-events:none}
+@media (prefers-reduced-motion:no-preference){
+  .cue{animation:cuein .6s var(--spring) both}
+  .cue .ar svg{animation:cueb 1.1s ease-in-out infinite}
+  .cue img{animation:squish2 1.1s ease-in-out infinite}
+  .cue::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:0 0 0 0 rgba(255,175,194,.7);animation:cuep 2s ease-out infinite;pointer-events:none}
+  @keyframes cueb{0%,100%{transform:translateY(-3px)}50%{transform:translateY(4px)}}
+  @keyframes cuep{0%{box-shadow:0 0 0 0 rgba(255,175,194,.75)}100%{box-shadow:0 0 0 16px rgba(255,175,194,0)}}
+  @keyframes cuein{0%{opacity:0;transform:translate(-50%,30px) scale(.7)}100%{opacity:1;transform:translateX(-50%)}}
+  .cue.gone{animation:none}
+  /* ヒーローの見出しは、読みこんだ瞬間にシールがぽんっと貼られていく。そのあとも、ときどきむにっと動く */
+  .js:not(.still) .hero .h1a .ln>span{animation:popin .62s var(--spring) both,jig 6s ease-in-out 3.2s infinite}
+  .js:not(.still) .hero .h1a .ln+.ln>span{animation-delay:.42s,3.8s}
+  .js:not(.still) .hero .h1a .ln:first-child>span{animation-delay:.12s,3.2s}
+  @keyframes popin{0%{opacity:0;transform:translateY(18px) scale(.55) rotate(-7deg)}60%{opacity:1;transform:translateY(-2px) scale(1.07) rotate(1.5deg)}100%{opacity:1;transform:none}}
+  @keyframes jig{0%,90%,100%{transform:none}93%{transform:scale(1.06,.92) rotate(-1deg)}96%{transform:scale(.97,1.04) rotate(.6deg)}}
+  .js:not(.still) .hero .hsub,.js:not(.still) .hero .hs3{animation:fadeup .6s ease both}
+  .js:not(.still) .hero .hsub{animation-delay:.85s}.js:not(.still) .hero .hs3{animation-delay:1.15s}
+  @keyframes fadeup{0%{opacity:0;transform:translateY(12px)}100%{opacity:1;transform:none}}
+  /* 「ロック画面」「ホーム画面」に、蛍光ペンが引かれる */
+  .hero .hsub b{background:linear-gradient(transparent 58%,rgba(255,111,150,.55) 58%,rgba(255,111,150,.55) 92%,transparent 92%) 0 0/0% 100% no-repeat}
+  .js:not(.still) .hero .hsub b{animation:hl .55s ease-out 1.5s forwards}
+  .js:not(.still) .hero .hsub b+br+*,.js:not(.still) .hero .hsub br~b{animation-delay:1.9s}
+  @keyframes hl{to{background-size:100% 100%}}
+  .js:not(.still) .hero .holo-chip{animation:popin2 .6s var(--spring) 1.45s both,holo 6s linear infinite}
+  @keyframes popin2{0%{opacity:0;transform:scale(.6) rotate(-10deg)}100%{opacity:1;transform:rotate(-2deg)}}
+}
+.still .cue,.reduce-cue .cue{animation:none}
 .dock .in{display:flex;align-items:center;gap:8px;height:var(--bar-h);padding:7px 7px 7px 8px;border-radius:24px;background:rgba(255,255,255,.97);color:var(--ink);box-shadow:0 12px 34px rgba(0,0,0,.4),0 0 0 1px rgba(0,0,0,.04)}
 .dock .go{flex:1;min-width:0;display:flex;align-items:center;gap:9px;text-decoration:none;height:100%;border-radius:18px}
 .dock .go img{width:46px;height:46px;border-radius:10.3px;flex:none}
@@ -1237,7 +1266,7 @@ footer nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 8p
   <div class="ttq">
     <b>TikTokで​出してる​質問、​たとえば</b>
     <div class="ttq-r"><span>彼氏に​聞いたら、​たぶん​笑う質問5つ</span><span>寝る前に​恋人に​聞きたい、​甘い質問5つ</span><span>勇気を​出して​彼女に​聞いてみて。​深い質問5つ</span></div>
-    <p>このつづきは、​ふたもちの​中に<b>500問以上</b>。</p>
+    <p>このつづきは、​ふたもちの​中に<b>たっぷり</b>。</p>
   </div>
 
   <div class="nf">
@@ -1471,7 +1500,7 @@ footer nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 8p
     </article>
     <article class="tl2 sm kr">
       <div class="k">ゲーム・​5つ</div>
-      <h3>お題は<br>500以上<p-q>。</p-q></h3>
+      <h3>お題は<br>たっぷり<p-q>。</p-q></h3>
       <div class="gl"><span>どっちがやりそう？</span><span>どっち​派？</span><span>したことある？</span><span>いっしょに​描こう</span><span>写真でこたえて</span></div>
     </article>
     <article class="tl2 sm fj">
@@ -1669,7 +1698,7 @@ footer nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 8p
 
 <aside class="wall" aria-hidden="true"><b class="h">ホーム画面に​8種類、<br>ロック画面に​6種類。</b><small class="s">ウィジェットは​全部で​14種類</small><div class="wgrid" id="wgrid"></div><img class="hugw" src="assets/img/mochi_pair_heart.svg" alt="" width="150" height="96" loading="lazy"></aside>
 
-<button type="button" class="cue gone" id="cue" aria-label="下へスクロールして、つづきを見る"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8l6 5 6-5"/><path d="M6 13l6 5 6-5" opacity=".55"/></svg>下に、​つづきがあるよ</button>
+<button type="button" class="cue gone" id="cue" aria-label="下へスクロールして、つづきを見る"><img src="assets/img/mochi_orange_happy.svg" alt="" width="34" height="34"><span class="t1">下に、​まだまだつづくよ</span><span class="t2">もっと​下へ。​まだまだあるよ</span><span class="ar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13"/><path d="M6 12.5l6 6 6-6"/></svg></span></button>
 <div class="dock" id="dock">
   <div class="in">
     <a class="go js-goget" href="#gcard">
@@ -2045,39 +2074,42 @@ footer nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 8p
 </script>
 <script>
 /* 最初の画面だけで終わりと思われないように。
-   a: 3秒さわらなければ、いちどだけ少し下へ動いて戻る（「下にまだある」と体で分かる）
-   b: 最初のアニメが一周したら、次の「今日の質問」の見出しが見えるところまで、ゆっくり進む（戻らない）
-   どちらも、さわった・スクロールしたらすぐやめる。?fold=a|b|off で切り替え（既定は FOLD_DEFAULT） */
+   見出しがぽんっと出て、ロック画面にらくがきが届くのを見てもらったら（約4.5秒）、次の「今日の質問」まで自動でゆっくり進んで止まる。
+   ドックの上の大きな合図は、自分で下へ読みはじめるまで出しておき、自動で進んだあとは「もっと下へ」に変わる。
+   さわった・スクロールした瞬間に自動の動きはやめる。?fold=off で止める */
 (function(){
-  var FOLD_DEFAULT="a";
-  var d=document,h=d.documentElement,cue=d.getElementById("cue"),q=d.getElementById("q");
-  var m=(/[?&]fold=(a|b|off)/.exec(location.search)||[0,FOLD_DEFAULT])[1];
-  if(m==="off"||!cue||!q||/[?&]at=/.test(location.search))return;
+  var d=document,h=d.documentElement,cue=d.getElementById("cue"),q=d.getElementById("q"),dock=d.getElementById("dock");
+  if(/[?&]fold=off/.test(location.search)||!cue||!q||/[?&]at=/.test(location.search)||h.classList.contains("still"))return;
   var calm=matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var touched=false,auto=false,done=false,y0=scrollY;
+  var touched=false,auto=false,autoY=-1,userMoved=0;
   function stop(){touched=true}
-  ["touchstart","wheel","keydown","pointerdown"].forEach(function(e){addEventListener(e,stop,{passive:true,once:true})});
-  function hideCue(){cue.classList.add("gone")}
-  addEventListener("scroll",function(){if(!auto&&scrollY>40){stop();hideCue()}if(!auto&&scrollY<=40&&!done)return},{passive:true});
-  cue.addEventListener("click",function(){stop();hideCue();glide(q.getBoundingClientRect().top+scrollY-56,700)});
-  if(scrollY<=40)setTimeout(function(){if(scrollY<=40)cue.classList.remove("gone")},1200);
+  ["touchstart","wheel","keydown","pointerdown"].forEach(function(e){addEventListener(e,stop,{passive:true})});
+  function show(){if(!dock.classList.contains("away"))cue.classList.remove("gone")}
+  function hide(){cue.classList.add("gone")}
+  var last=scrollY;
+  addEventListener("scroll",function(){
+    var y=scrollY;if(!auto&&touched){userMoved+=Math.max(0,y-last)}last=y;
+    /* 自分で 1画面ぶんくらい下へ読んだら、もう合図はいらない */
+    if(userMoved>innerHeight*.8||dock.classList.contains("away"))hide();
+  },{passive:true});
+  cue.addEventListener("click",function(){stop();
+    var secs=[].slice.call(d.querySelectorAll(".clip")),nx=null;
+    for(var i=0;i<secs.length;i++){var t=secs[i].getBoundingClientRect().top;if(t>70){nx=secs[i];break}}
+    if(nx)glide(nx.getBoundingClientRect().top+scrollY-6,800);cue.classList.add("more")});
+  setTimeout(function(){if(scrollY<innerHeight*.5)show()},calm?300:2200);
   function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
   function glide(to,ms,cb){
     var from=scrollY,t0=null,ss=h.style.scrollSnapType,sb=h.style.scrollBehavior;
-    h.style.scrollSnapType="none";h.style.scrollBehavior="auto";auto=true;
+    h.style.scrollSnapType="none";h.style.scrollBehavior="auto";auto=true;var me=touched;
+    function end(){auto=false;h.style.scrollSnapType=ss;h.style.scrollBehavior=sb}
     function f(t){if(t0===null)t0=t;var k=Math.min(1,(t-t0)/ms);
-      if(touched&&k<1&&cb){auto=false;h.style.scrollSnapType=ss;h.style.scrollBehavior=sb;return}
+      if(cb&&touched&&!me){end();return}
       scrollTo(0,from+(to-from)*ease(k));
-      if(k<1)requestAnimationFrame(f);else{auto=false;h.style.scrollSnapType=ss;h.style.scrollBehavior=sb;cb&&cb()}}
+      if(k<1)requestAnimationFrame(f);else{end();cb&&cb()}}
     requestAnimationFrame(f)}
   if(calm)return;
-  if(m==="a"){
-    setTimeout(function(){if(touched||scrollY>40)return;var dy=Math.min(170,innerHeight*.24);
-      glide(dy,650,function(){setTimeout(function(){if(!touched)glide(0,700,function(){done=true})},450)})},3000)}
-  else{
-    setTimeout(function(){if(touched||scrollY>40)return;
-      var to=q.getBoundingClientRect().top+scrollY-innerHeight*.55;if(to<60)return;
-      glide(to,1600,function(){done=true;hideCue()})},5200)}
+  setTimeout(function(){if(touched||scrollY>40)return;
+    glide(q.getBoundingClientRect().top+scrollY-6,1500,function(){cue.classList.add("more");show()})},4600);
 })();
 </script>
 </body>
