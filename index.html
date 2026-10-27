@@ -819,6 +819,11 @@ footer nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 8p
 /* ---------- dock ---------- */
 .dock{position:fixed;z-index:50;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:var(--col);padding:0 12px calc(10px + var(--safe-b));transition:transform .45s var(--spring),opacity .3s}
 .dock.away{transform:translate(-50%,130%);opacity:0;pointer-events:none}
+/* 最初の画面が「1枚で終わり」に見えないように: ドックの上の「つづき」の合図（下へ読みはじめたら消える） */
+.cue{position:fixed;z-index:49;left:50%;bottom:calc(var(--bar-h) + 20px + var(--safe-b));transform:translateX(-50%);display:flex;align-items:center;gap:7px;padding:7px 15px 8px 12px;border-radius:999px;background:rgba(26,14,19,.62);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:#fff;font-size:13px;font-weight:900;letter-spacing:.02em;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.28),inset 0 0 0 1px rgba(255,255,255,.14);pointer-events:auto;cursor:pointer;transition:opacity .35s,transform .45s var(--spring)}
+.cue svg{width:18px;height:18px;flex:none}
+.cue.gone{opacity:0;transform:translate(-50%,14px);pointer-events:none}
+@media (prefers-reduced-motion:no-preference){.cue svg{animation:cueb 1.6s ease-in-out infinite}@keyframes cueb{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}}
 .dock .in{display:flex;align-items:center;gap:8px;height:var(--bar-h);padding:7px 7px 7px 8px;border-radius:24px;background:rgba(255,255,255,.97);color:var(--ink);box-shadow:0 12px 34px rgba(0,0,0,.4),0 0 0 1px rgba(0,0,0,.04)}
 .dock .go{flex:1;min-width:0;display:flex;align-items:center;gap:9px;text-decoration:none;height:100%;border-radius:18px}
 .dock .go img{width:46px;height:46px;border-radius:10.3px;flex:none}
@@ -1173,7 +1178,7 @@ footer nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 8p
     </p>
     <span class="mini-stk"><img src="assets/img/04_ramen.webp" alt="" width="22" height="22">撮った​「いま」も、​ホーム画面に</span>
   </div>
-  <p class="both1"><span class="holo-chip"><b>最強のカップルアプリ</b><small>ウィジェット14種・​質問500以上・​診断13種</small></span><a class="qgo" href="#q" aria-label="さっきの質問のつづきへ"><i>Q</i>つづき</a></p>
+  <p class="both1"><span class="holo-chip"><b>最強のカップルアプリ</b><small>ウィジェット14種・​質問たっぷり・​診断13種</small></span><a class="qgo" href="#q" aria-label="さっきの質問のつづきへ"><i>Q</i>つづき</a></p>
 
   <div class="stage s-idle" id="stage" role="img" aria-label="あおいが指で描いたらくがきが、はるとのロック画面のウィジェットに白い線で届く。続けて、あおいが撮ったお昼の写真が、はるとのホーム画面のウィジェット「いまのふたり」に入るようす（画面はイメージです）">
     <div class="lock" aria-hidden="true">
@@ -1664,6 +1669,7 @@ footer nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 8p
 
 <aside class="wall" aria-hidden="true"><b class="h">ホーム画面に​8種類、<br>ロック画面に​6種類。</b><small class="s">ウィジェットは​全部で​14種類</small><div class="wgrid" id="wgrid"></div><img class="hugw" src="assets/img/mochi_pair_heart.svg" alt="" width="150" height="96" loading="lazy"></aside>
 
+<button type="button" class="cue gone" id="cue" aria-label="下へスクロールして、つづきを見る"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8l6 5 6-5"/><path d="M6 13l6 5 6-5" opacity=".55"/></svg>下に、​つづきがあるよ</button>
 <div class="dock" id="dock">
   <div class="in">
     <a class="go js-goget" href="#gcard">
@@ -2035,6 +2041,43 @@ footer nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 8p
     clips.forEach(function(c,i){var r=c.getBoundingClientRect();var p=Math.min(1,Math.max(0,(vh*.5-r.top)/r.height));if(bars[i])bars[i].style.transform="scaleX("+p.toFixed(3)+")"})}
   var at=/[?&]at=([\w-]+)/.exec(location.search);if(at){var ae=d.getElementById(at[1]);if(ae){var y=ae.getBoundingClientRect().top+scrollY-(/[?&]at0/.test(location.search)?0:70);scrollTo({top:y,behavior:"instant"})}}
   addEventListener("scroll",function(){if(!tick){tick=true;requestAnimationFrame(prog)}},{passive:true});addEventListener("resize",prog);prog();
+})();
+</script>
+<script>
+/* 最初の画面だけで終わりと思われないように。
+   a: 3秒さわらなければ、いちどだけ少し下へ動いて戻る（「下にまだある」と体で分かる）
+   b: 最初のアニメが一周したら、次の「今日の質問」の見出しが見えるところまで、ゆっくり進む（戻らない）
+   どちらも、さわった・スクロールしたらすぐやめる。?fold=a|b|off で切り替え（既定は FOLD_DEFAULT） */
+(function(){
+  var FOLD_DEFAULT="a";
+  var d=document,h=d.documentElement,cue=d.getElementById("cue"),q=d.getElementById("q");
+  var m=(/[?&]fold=(a|b|off)/.exec(location.search)||[0,FOLD_DEFAULT])[1];
+  if(m==="off"||!cue||!q||/[?&]at=/.test(location.search))return;
+  var calm=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var touched=false,auto=false,done=false,y0=scrollY;
+  function stop(){touched=true}
+  ["touchstart","wheel","keydown","pointerdown"].forEach(function(e){addEventListener(e,stop,{passive:true,once:true})});
+  function hideCue(){cue.classList.add("gone")}
+  addEventListener("scroll",function(){if(!auto&&scrollY>40){stop();hideCue()}if(!auto&&scrollY<=40&&!done)return},{passive:true});
+  cue.addEventListener("click",function(){stop();hideCue();glide(q.getBoundingClientRect().top+scrollY-56,700)});
+  if(scrollY<=40)setTimeout(function(){if(scrollY<=40)cue.classList.remove("gone")},1200);
+  function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+  function glide(to,ms,cb){
+    var from=scrollY,t0=null,ss=h.style.scrollSnapType,sb=h.style.scrollBehavior;
+    h.style.scrollSnapType="none";h.style.scrollBehavior="auto";auto=true;
+    function f(t){if(t0===null)t0=t;var k=Math.min(1,(t-t0)/ms);
+      if(touched&&k<1&&cb){auto=false;h.style.scrollSnapType=ss;h.style.scrollBehavior=sb;return}
+      scrollTo(0,from+(to-from)*ease(k));
+      if(k<1)requestAnimationFrame(f);else{auto=false;h.style.scrollSnapType=ss;h.style.scrollBehavior=sb;cb&&cb()}}
+    requestAnimationFrame(f)}
+  if(calm)return;
+  if(m==="a"){
+    setTimeout(function(){if(touched||scrollY>40)return;var dy=Math.min(170,innerHeight*.24);
+      glide(dy,650,function(){setTimeout(function(){if(!touched)glide(0,700,function(){done=true})},450)})},3000)}
+  else{
+    setTimeout(function(){if(touched||scrollY>40)return;
+      var to=q.getBoundingClientRect().top+scrollY-innerHeight*.55;if(to<60)return;
+      glide(to,1600,function(){done=true;hideCue()})},5200)}
 })();
 </script>
 </body>
