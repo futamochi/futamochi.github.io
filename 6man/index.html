@@ -19,7 +19,7 @@
 @font-face{font-family:"FM Display";src:url(fm-display.woff) format("woff");font-weight:900;font-display:swap}
 :root{
   --azuki:#3A1F29;--azuki-3:#4A2633;--azuki-4:#5C3644;--cream:#FBF6F0;--paper:#FFF8F1;
-  --ink:#2B1A1F;--ink-2:#66575C;--ink-3:#8A7B80;--line:#EEE5DD;
+  --ink:#2B1A1F;--ink-2:#66575C;--ink-3:#6B5C61;--line:#EEE5DD;
   --sakura:#FFC9D6;--sakura-1:#FFEEF2;--kuri:#FFE39A;--love:#FF4F6D;--c-sakura:#C9507A;
   --me:#FF8E5E;--me-t:#B04318;--pt:#8FCBFF;--pt-s:#5EB0F5;--pt-t:#1F6FB8;--fuji:#EFEAFF;
   --display:"FM Display","Hiragino Maru Gothic ProN","Hiragino Sans",ui-rounded,system-ui,sans-serif;
@@ -56,7 +56,7 @@ p-q{margin-right:-.42em}
 .themes .lbl{padding:0 16px;font-size:12px;font-weight:900;color:var(--c-sakura);letter-spacing:.06em}
 .chips{display:flex;gap:7px;overflow-x:auto;padding:8px 16px 4px;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
-.chip{flex:none;height:34px;padding:0 13px;border-radius:17px;background:#fff;font-size:13px;font-weight:900;box-shadow:inset 0 0 0 1.5px var(--line);white-space:nowrap}
+.chip{flex:none;height:40px;padding:0 13px;border-radius:17px;background:#fff;font-size:13px;font-weight:900;box-shadow:inset 0 0 0 1.5px var(--line);white-space:nowrap}
 .chip[aria-pressed="true"]{background:var(--azuki);color:#fff;box-shadow:none}
 .chip .nw{display:inline-block;margin-left:5px;font-size:10px;background:var(--kuri);color:var(--ink);border-radius:6px;padding:0 5px;vertical-align:1px}
 
@@ -73,15 +73,16 @@ p-q{margin-right:-.42em}
 .cell:active{transform:scale(.95)}
 .cell .im{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:1/0.86;background:#EFE7E0}
 .cell .im img{width:100%;height:100%;object-fit:cover}
-.cell .pr{position:absolute;left:5px;top:5px;font-family:var(--display);font-size:11px;line-height:1;padding:4px 6px 5px;border-radius:8px;background:rgba(43,26,31,.82);color:#fff}
+.cell .pr{position:absolute;left:5px;top:5px;font-family:var(--display);font-size:12px;line-height:1;padding:4px 6px 5px;border-radius:8px;background:rgba(43,26,31,.82);color:#fff}
 .cell .lb{display:flex;align-items:center;justify-content:center;min-height:40px;padding:4px 2px 6px;font-size:12.5px;font-weight:900;line-height:1.25}
 .cell[aria-pressed="true"]{background:var(--sakura-1);box-shadow:inset 0 0 0 2.5px var(--love)}
 .cell .ck{position:absolute;right:-5px;top:-6px;width:28px;height:28px;border-radius:50%;background:var(--me) url(mochi_orange_happy.svg) center/24px no-repeat;box-shadow:0 0 0 2.5px #fff;transform:scale(0);transition:transform .25s var(--spring)}
 .him .cell .ck{background-color:var(--pt-s);background-image:url(mochi_sky_happy.svg)}
 .him .cell[aria-pressed="true"]{background:#EEF6FF;box-shadow:inset 0 0 0 2.5px var(--pt-s)}
 .cell[aria-pressed="true"] .ck{transform:scale(1)}
-.cell:disabled{opacity:.34;cursor:default}
-.cell:disabled .lb::after{content:"予算オーバー";position:absolute;left:0;right:0;top:34%;font-size:10.5px;font-weight:900;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5)}
+.cell[aria-disabled] .im img{opacity:.35;filter:grayscale(.6)}
+.cell[aria-disabled] .lb{opacity:.45}
+.cell[aria-disabled] .im::after{content:"予算オーバー";position:absolute;left:4px;right:4px;bottom:6px;padding:3px 0;border-radius:8px;background:rgba(43,26,31,.85);color:#fff;font-size:10.5px;font-weight:900;text-align:center}
 .note{margin:12px 20px 0;font-size:12px;font-weight:800;color:var(--ink-3);line-height:1.7}
 
 /* ---------- 下の予算バー ---------- */
@@ -95,7 +96,7 @@ p-q{margin-right:-.42em}
 .coins i.u{background:#EFE7E0;box-shadow:inset 0 0 0 1.5px var(--line)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 20px;border-radius:26px;background:var(--azuki);color:#fff;font-family:var(--display);font-size:16px;letter-spacing:.02em;text-decoration:none;box-shadow:0 5px 0 rgba(0,0,0,.18);transition:transform .2s var(--spring),opacity .2s}
 .btn:active{transform:translateY(2px) scale(.98)}
-.btn:disabled{opacity:.3;box-shadow:none}
+.btn:disabled{opacity:1;background:#E9E0E3;color:#66575C;box-shadow:none}
 .btn.line{background:#06C755}
 .btn.ghost{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 2px var(--line)}
 .btn.full{width:100%}
@@ -122,7 +123,7 @@ p-q{margin-right:-.42em}
 .acts{display:grid;gap:9px;margin-top:16px}
 .lock{display:flex;align-items:center;gap:8px;margin-top:12px;padding:10px 12px;border-radius:14px;background:#F5EEE7;font-size:12px;font-weight:900;color:var(--ink-2);line-height:1.5}
 .lock svg{flex:none;width:16px;height:16px}
-.back{display:block;margin:14px auto 0;font-size:12.5px;font-weight:900;color:var(--ink-3);text-decoration:underline;text-underline-offset:3px}
+.back{display:block;margin:6px auto 0;padding:14px 24px;font-size:13px;font-weight:900;color:var(--ink-3);text-decoration:underline;text-underline-offset:3px}
 .toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 96px);z-index:30;transform:translate(-50%,20px);opacity:0;padding:9px 16px;border-radius:14px;background:var(--ink);color:#fff;font-size:13px;font-weight:900;transition:.25s;pointer-events:none}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 
@@ -171,14 +172,16 @@ p-q{margin-right:-.42em}
 .store .t b{display:block;font-size:13.5px;font-weight:900;line-height:1.35}
 .store .t span{display:block;margin-top:2px;font-size:11px;font-weight:800;color:var(--ink-3);line-height:1.4}
 .store .gt{flex:none;height:32px;padding:0 16px;border-radius:16px;background:#EEF0F6;color:#2F6FED;font-size:14px;font-weight:900;line-height:32px}
-.req{margin:10px 0 0;font-size:11px;font-weight:800;color:var(--ink-3);line-height:1.6}
+.req{margin:10px 0 0;font-size:11.5px;font-weight:800;color:var(--ink-3);line-height:1.6}
 .follow{display:flex;align-items:center;gap:10px;margin:18px 0 0;padding:12px 14px;border-radius:18px;background:#fff;text-decoration:none;box-shadow:0 0 0 1px rgba(43,26,31,.06)}
 .follow img{width:34px}
 .follow b{display:block;font-size:13px;font-weight:900}
 .follow span{font-size:11.5px;font-weight:800;color:var(--ink-3)}
-.foot{padding:22px 16px calc(env(safe-area-inset-bottom) + 28px);font-size:10.5px;font-weight:800;color:var(--ink-3);text-align:center;line-height:1.7}
+.foot{padding:22px 16px calc(env(safe-area-inset-bottom) + 28px);font-size:11.5px;font-weight:800;color:var(--ink-3);text-align:center;line-height:1.7}
 .foot a{color:inherit}
 [hidden]{display:none!important}
+.nb{display:inline-block}
+.ttl .l2{white-space:nowrap}
 </style>
 </head>
 <body>
@@ -199,11 +202,12 @@ var LIVE=THEMES.filter(function(t){return t.date<=tstr}).sort(function(a,b){retu
 if(!LIVE.length) LIVE=THEMES.slice();
 function byKey(k){for(var i=0;i<THEMES.length;i++) if(THEMES[i].key===k) return THEMES[i]; return LIVE[0]}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function nb(s){return esc(s).replace(/[^、。・]+[、。・]?/g,'<span class="nb">$&</span>')}
 function kq(s){return esc(s).replace(/([、。])/g,"<p-q>$1</p-q>")}
 function img(t,r,c){return "cells/"+t.id+"_"+r+c+".webp"}
 function b64e(o){var s=unescape(encodeURIComponent(JSON.stringify(o)));return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")}
 function b64d(s){try{s=s.replace(/-/g,"+").replace(/_/g,"/");return JSON.parse(decodeURIComponent(escape(atob(s))))}catch(e){return null}}
-function combo(t,a){return t.rows.map(function(r,i){return r.name+(a[i]+1)}).join("・")}
+function combo(t,a){return t.rows.map(function(r,i){return r.name+(a[i]+1)+"万"}).join("・")}
 function sum(a){return a.reduce(function(x,y){return x+(y+1)},0)}
 function toast(m){var e=$("#toast");e.textContent=m;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(function(){e.classList.remove("on")},1800)}
 function copy(text,msg){
@@ -221,7 +225,7 @@ function hero(t,opt){
   return '<header class="hero">'+
     '<div class="brand"><img src="icon-46@3x.webp" alt="">ふたもち<small>6万円の答え合わせ</small></div>'+
     (opt.pin?'<span class="pin">'+esc(opt.pin)+'</span>':'')+
-    '<h1 class="ttl"><span class="l1"><em>6万円</em>で</span><br><span class="l2">'+esc(t.title[1])+'</span></h1>'+
+    '<h1 class="ttl"><span class="l1"><em>6万円</em>で</span><br><span class="l2" style="font-size:min(31px,calc((100vw - 64px)/'+t.title[1].length+'))">'+esc(t.title[1])+'</span></h1>'+
     (opt.lead?'<p class="lead">'+opt.lead+'</p>':'')+
     (opt.extra||'')+
     '</header>'+WAVE;
@@ -235,7 +239,7 @@ function board(t,picks,side){
     html+='<div class="row"><div class="rh"><b>'+esc(r.name)+'</b><small class="'+(picks[i]>=0?"on":"")+'">'+(picks[i]>=0?"えらんだ："+(picks[i]+1)+"万円":"1つえらぶ")+'</small></div><div class="cells">';
     r.labels.forEach(function(lb,c){
       var cost=c+1, ok=cost<=budget-others;
-      html+='<button type="button" class="cell" data-r="'+i+'" data-c="'+c+'" aria-pressed="'+(picks[i]===c)+'"'+(ok?"":" disabled")+'>'+
+      html+='<button type="button" class="cell" data-r="'+i+'" data-c="'+c+'" aria-pressed="'+(picks[i]===c)+'"'+(ok?"":' data-x="1" aria-disabled="true"')+'>'+
         '<span class="im"><img src="'+img(t,i,c)+'" alt="" loading="'+(i<1?"eager":"lazy")+'" decoding="async"><span class="pr">'+cost+'万円</span></span>'+
         '<span class="lb">'+esc(lb)+'</span><i class="ck" aria-hidden="true"></i></button>';
     });
@@ -244,23 +248,24 @@ function board(t,picks,side){
   return html+'</section>';
 }
 function bar(picks,label,disabled){
+  var nleft=picks.filter(function(x){return x<0}).length; if(disabled) label="あと"+nleft+"行えらぶ";
   var used=sum(picks.filter(function(x){return x>=0})), left=6-used, coins="";
   for(var i=0;i<6;i++) coins+='<i class="'+(i<used?"":"u")+'"></i>';
   return '<div class="bar"><div class="in"><div class="bud"><small>のこり</small><b>'+left+'万円</b><div class="coins" aria-hidden="true">'+coins+'</div></div>'+
     '<button type="button" class="btn" id="go"'+(disabled?" disabled":"")+'>'+label+'</button></div></div>';
 }
 function chips(t){
-  var h='<div class="themes"><div class="lbl">ほかのお題</div><div class="chips" role="group" aria-label="お題">';
+  var h='<div class="themes"><div class="lbl">ほかの日のお題</div><div class="chips" role="group" aria-label="お題">';
   LIVE.forEach(function(x,i){h+='<button type="button" class="chip" data-k="'+x.key+'" aria-pressed="'+(x.key===t.key)+'">'+esc(x.short)+(i===0?'<span class="nw">きょう</span>':'')+'</button>'});
   return h+'</div></div>';
 }
 function appBlock(ct){
   return '<section class="app" aria-labelledby="h-app"><div class="tag">ふたもち</div>'+
     '<h2 id="h-app">この答え合わせを<p-q>、</p-q><br>毎日ふたりで<p-q>。</p-q></h2>'+
-    '<p>ふたもちの「今日の質問」は、自分が答えると、相手の答えがひらく。毎日ひとつ、ふたりに届くよ。</p>'+
+    '<p>'+nb("ふたもちの「今日の質問」は、自分が答えると、相手の答えがひらく。毎日ひとつ、ふたりに届くよ。")+'</p>'+
     '<div class="shot"><img src="real_play_question.jpg" alt="ふたもちの今日の質問の画面" loading="lazy" decoding="async"></div>'+
-    '<a class="store" href="'+store(ct)+'"><img src="icon-64@3x.webp" alt=""><span class="t"><b>ふたもち：カップルアプリ＆記念日ウィジェット</b><span>App Storeで「ふたもち」と検索しても出てくるよ</span></span><span class="gt">入手</span></a>'+
-    '<p class="req">ふたりともiPhone（iOS 18以降）が必要です・ダウンロード無料（App内課金あり）・ひとりの購入でふたりとも使えます</p>'+
+    '<a class="store" href="'+store(ct)+'"><img src="icon-64@3x.webp" alt=""><span class="t"><b>ふたもち：カップルアプリ＆<span class="nb">記念日ウィジェット</span></b><span>App Storeで「ふたもち」と検索しても出てくるよ</span></span><span class="gt">入手</span></a>'+
+    '<p class="req">'+nb("ふたりともiPhone（iOS 18以降）が必要です・ダウンロード無料（App内課金あり）・ひとりの購入でふたりとも使えます")+'</p>'+
     '<a class="follow" href="'+IG+'"><img src="mochi_pair_hug.svg" alt=""><span><b>新しい6万円のお題は、毎日18:30</b><span>インスタ @futamochi.app でフォローしてね</span></span></a>'+
     '</section>';
 }
@@ -270,11 +275,11 @@ function foot(){return '<footer class="foot">答えはリンクの中だけ。�
 function pickMe(t,picks){
   picks=picks||[-1,-1,-1];
   var done=picks.every(function(x){return x>=0});
-  app.innerHTML=hero(t,{pin:"さっきのお題、ここで彼とできるよ",lead:"各行から1つずつ、合計6万円まで<p-q>。</p-q><br>できたら、どれを選んだか<br>彼に当ててもらおう<p-q>。</p-q>",extra:'<img class="mochi" src="mochi_pair_heart.svg" alt="">'})+
+  app.innerHTML=hero(t,{pin:(t.key===LIVE[0].key?"きょうのお題、ここで彼とできるよ":"このお題も、ここで彼とできるよ"),lead:"各行から1つずつ、合計6万円まで<p-q>。</p-q><br>できたら、どれを選んだか<br>彼に当ててもらおう<p-q>。</p-q>",extra:'<img class="mochi" src="mochi_pair_heart.svg" alt="">'})+
     chips(t)+board(t,picks,"me")+'<p class="note">答えはリンクの中だけ。どこにも保存されません。</p><div class="spacer"></div>'+
     bar(picks,"彼に送る →",!done);
   app.querySelectorAll(".chip").forEach(function(b){b.onclick=function(){pickMe(byKey(b.dataset.k));scrollTo(0,0)}});
-  app.querySelectorAll(".cell").forEach(function(b){b.onclick=function(){var r=+b.dataset.r,c=+b.dataset.c;picks[r]=picks[r]===c?-1:c;var y=scrollY;pickMe(t,picks);scrollTo(0,y)}});
+  app.querySelectorAll(".cell").forEach(function(b){b.onclick=function(){if(b.dataset.x){toast("予算が足りないよ。ほかの行を下げてね");return}var r=+b.dataset.r,c=+b.dataset.c;picks[r]=picks[r]===c?-1:c;var y=scrollY;pickMe(t,picks);scrollTo(0,y)}});
   $("#go").onclick=function(){send(t,picks);scrollTo(0,0)};
 }
 /* ---------- 2. 彼に送る ---------- */
@@ -283,12 +288,12 @@ function send(t,picks,name){
   app.innerHTML=hero(t,{pin:"あなたの答え、できたよ"})+
     '<section class="sheet"><h2>彼に、当ててもらおう<p-q>。</p-q></h2><p class="sub">あなたがどれを選んだか、彼が同じ表で予想します。当たったかどうかは、彼が選び終わるとひらきます。</p>'+
     '<div class="mine">'+mine+'</div>'+
-    '<div class="combo"><small>インスタのコメントにも書いてね</small><b>'+esc(combo(t,picks))+'</b><button type="button" id="cc">この組み合わせをコピー</button></div>'+
+    
     '<div class="field"><label for="nm">彼の画面に出る、あなたの名前（なくてもOK）</label><input id="nm" maxlength="10" placeholder="例：あおい" value="'+esc(name||"")+'" autocomplete="off"></div>'+
     '<div class="acts"><a class="btn line full" id="ln" href="#">LINEで彼に送る</a><button type="button" class="btn ghost full" id="cp">リンクをコピー</button>'+(navigator.share?'<button type="button" class="btn ghost full" id="sh">ほかのアプリで送る</button>':'')+'</div>'+
-    '<div class="lock">'+LOCK+'あなたの答えは、彼が予想し終わるまでひらきません。</div>'+
+    '<div class="lock">'+LOCK+'<span>'+nb("あなたの答えは、彼が予想し終わるまでひらきません。")+'</span></div>'+'<div class="combo"><small>インスタのコメントにも書いてね</small><b>'+esc(combo(t,picks))+'</b><button type="button" id="cc">この組み合わせをコピー</button></div>'+
     '<button type="button" class="back" id="bk">選びなおす</button></section>'+
-    appBlock("6man_send")+foot();
+    foot();
   function link(){var n=$("#nm").value.trim().slice(0,10);return base()+"#p="+b64e({t:t.key,a:picks,n:n})}
   function msg(){return "6万円で"+t.title[1]+"\n私がどれ選んだか、当ててみて👇\n"+link()}
   $("#ln").onclick=function(e){e.preventDefault();location.href="https://line.me/R/share?text="+encodeURIComponent(msg())};
@@ -304,7 +309,7 @@ function pickHim(t,her,picks){
   app.innerHTML=hero(t,{pin:n+"から、お題が届いたよ",lead:esc(n)+"がどれを選んだか、当ててみて<p-q>。</p-q><br>各行から1つずつ、合計6万円まで<p-q>。</p-q>",extra:'<img class="mochi" src="mochi_pair_heart.svg" alt="">'})+
     '<div class="from"><img src="mochi_orange_happy.svg" alt=""><div><b>'+esc(n)+'はもう選んだよ。どれだと思う？</b><span>'+LOCK+'予想すると、'+esc(n)+'の答えがひらく</span></div></div>'+
     board(t,picks,"him")+'<div class="spacer"></div>'+bar(picks,"答え合わせ →",!done);
-  app.querySelectorAll(".cell").forEach(function(b){b.onclick=function(){var r=+b.dataset.r,c=+b.dataset.c;picks[r]=picks[r]===c?-1:c;var y=scrollY;pickHim(t,her,picks);scrollTo(0,y)}});
+  app.querySelectorAll(".cell").forEach(function(b){b.onclick=function(){if(b.dataset.x){toast("予算が足りないよ。ほかの行を下げてね");return}var r=+b.dataset.r,c=+b.dataset.c;picks[r]=picks[r]===c?-1:c;var y=scrollY;pickHim(t,her,picks);scrollTo(0,y)}});
   $("#go").onclick=function(){result(t,her.a,picks,n,"him");scrollTo(0,0)};
 }
 /* ---------- 4. 答え合わせ ---------- */
@@ -321,9 +326,9 @@ function result(t,a,b,n,viewer){
   }).join("");
   var gap=-1,gi=0; t.rows.forEach(function(r,i){var d=Math.abs(a[i]-b[i]);if(d>gap){gap=d;gi=i}});
   var talk=gap>0?"「"+t.rows[gi].name+"」で"+gap+"万円ずれた。なんでそれを選んだか、聞いてみて":"ぜんぶ当たり。じゃあ次は、ちがうお題でもう一回";
-  app.innerHTML=hero(t,{pin:"答え合わせ",extra:'<div class="score">'+(viewer==="him"?"あなたの予想、":"彼の予想、")+'3つ中<b>'+same+'</b>つ当たり</div><div class="verdict">'+esc(VERDICT[same])+'</div><img class="mochi" src="mochi_pair_hug.svg" alt="">'})+
+  app.innerHTML=hero(t,{pin:"答え合わせ",extra:'<div class="score">'+(viewer==="him"?"あなたの予想、":"彼の予想、")+'3つ中<b>'+same+'</b>つ当たり</div><div class="verdict">'+nb(VERDICT[same])+'</div><img class="mochi" src="mochi_pair_hug.svg" alt="">'})+
     '<section class="cmp"><div class="who"><span><img src="'+MOCHI.me+'" alt="">'+esc(herLbl)+'の答え</span><span><img src="'+MOCHI.him+'" alt="">'+esc(himLbl)+'の予想</span></div>'+rows+'</section>'+
-    '<div class="talk"><svg viewBox="0 0 24 24" fill="none" stroke="#2B1A1F" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h11a3 3 0 0 1 3 3v5a3 3 0 0 1-3 3H9l-4 3v-3H4a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3z"/><path d="M20 9a3 3 0 0 1 3 3v4a3 3 0 0 1-3 3h-1v3l-3-3"/></svg><div><small>答えがそろったよ。話してみよう</small><b>'+esc(talk)+'</b></div></div>'+
+    '<div class="talk"><svg viewBox="0 0 24 24" fill="none" stroke="#2B1A1F" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h11a3 3 0 0 1 3 3v5a3 3 0 0 1-3 3H9l-4 3v-3H4a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3z"/><path d="M20 9a3 3 0 0 1 3 3v4a3 3 0 0 1-3 3h-1v3l-3-3"/></svg><div><small>答えがそろったよ。話してみよう</small><b>'+nb(talk)+'</b></div></div>'+
     (viewer==="him"?'<section class="sheet"><h2>結果を'+esc(n)+'にも<p-q>。</p-q></h2><p class="sub">'+esc(n)+'の画面にも、同じ答え合わせがひらきます。</p><div class="acts"><a class="btn line full" id="ln" href="#">LINEで'+esc(n)+'に送る</a><button type="button" class="btn ghost full" id="cp">リンクをコピー</button></div></section>':
       '<div style="padding:16px 12px 0"><button type="button" class="btn ghost full" id="again">別のお題で、もう一回</button></div>')+
     appBlock(viewer==="him"?"6man_result_him":"6man_result_her")+foot();
