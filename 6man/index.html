@@ -47,7 +47,7 @@ p-q{margin-right:-.42em}
 .ttl .l1{background:#fff;color:var(--ink);font-size:clamp(30px,9vw,38px);transform:rotate(-1.2deg)}
 .ttl .l1 em{font-style:normal;color:var(--love)}
 .ttl .l2{margin-top:6px;background:var(--sakura);color:var(--ink);font-size:clamp(25px,7.4vw,31px);transform:rotate(.8deg)}
-.lead{position:relative;margin:16px 0 0;font-size:13.5px;font-weight:800;line-height:1.7;color:rgba(255,255,255,.86)}
+.lead{position:relative;margin:16px 0 0;padding-right:84px;font-size:13.5px;font-weight:800;line-height:1.7;color:rgba(255,255,255,.86)}
 .hero .mochi{position:absolute;right:12px;bottom:26px;width:84px;opacity:.98}
 .wave{display:block;width:100%;height:28px;margin-top:-27px;position:relative}
 
@@ -270,7 +270,7 @@ function foot(){return '<footer class="foot">答えはリンクの中だけ。�
 function pickMe(t,picks){
   picks=picks||[-1,-1,-1];
   var done=picks.every(function(x){return x>=0});
-  app.innerHTML=hero(t,{pin:"さっきのお題、ここで彼とできるよ",lead:"各行から1つずつ、合計6万円まで<p-q>。</p-q><br>選んだら、彼にも同じ表を<p-q>。</p-q>ふたりの答えは、そろったらひらく<p-q>。</p-q>",extra:'<img class="mochi" src="mochi_pair_heart.svg" alt="">'})+
+  app.innerHTML=hero(t,{pin:"さっきのお題、ここで彼とできるよ",lead:"各行から1つずつ、合計6万円まで<p-q>。</p-q><br>できたら、どれを選んだか<br>彼に当ててもらおう<p-q>。</p-q>",extra:'<img class="mochi" src="mochi_pair_heart.svg" alt="">'})+
     chips(t)+board(t,picks,"me")+'<p class="note">答えはリンクの中だけ。どこにも保存されません。</p><div class="spacer"></div>'+
     bar(picks,"彼に送る →",!done);
   app.querySelectorAll(".chip").forEach(function(b){b.onclick=function(){pickMe(byKey(b.dataset.k));scrollTo(0,0)}});
@@ -281,16 +281,16 @@ function pickMe(t,picks){
 function send(t,picks,name){
   var mine=t.rows.map(function(r,i){return '<figure><img src="'+img(t,i,picks[i])+'" alt=""><figcaption>'+esc(r.labels[picks[i]])+'<small>'+esc(r.name)+'・'+(picks[i]+1)+'万円</small></figcaption></figure>'}).join("");
   app.innerHTML=hero(t,{pin:"あなたの答え、できたよ"})+
-    '<section class="sheet"><h2>彼にも、同じ表を<p-q>。</p-q></h2><p class="sub">彼が選び終わると、ふたりの答えがならんでひらきます。</p>'+
+    '<section class="sheet"><h2>彼に、当ててもらおう<p-q>。</p-q></h2><p class="sub">あなたがどれを選んだか、彼が同じ表で予想します。当たったかどうかは、彼が選び終わるとひらきます。</p>'+
     '<div class="mine">'+mine+'</div>'+
     '<div class="combo"><small>インスタのコメントにも書いてね</small><b>'+esc(combo(t,picks))+'</b><button type="button" id="cc">この組み合わせをコピー</button></div>'+
     '<div class="field"><label for="nm">彼の画面に出る、あなたの名前（なくてもOK）</label><input id="nm" maxlength="10" placeholder="例：あおい" value="'+esc(name||"")+'" autocomplete="off"></div>'+
     '<div class="acts"><a class="btn line full" id="ln" href="#">LINEで彼に送る</a><button type="button" class="btn ghost full" id="cp">リンクをコピー</button>'+(navigator.share?'<button type="button" class="btn ghost full" id="sh">ほかのアプリで送る</button>':'')+'</div>'+
-    '<div class="lock">'+LOCK+'あなたの答えは、彼が選ぶまでひらきません。</div>'+
+    '<div class="lock">'+LOCK+'あなたの答えは、彼が予想し終わるまでひらきません。</div>'+
     '<button type="button" class="back" id="bk">選びなおす</button></section>'+
     appBlock("6man_send")+foot();
   function link(){var n=$("#nm").value.trim().slice(0,10);return base()+"#p="+b64e({t:t.key,a:picks,n:n})}
-  function msg(){return "6万円で"+t.title[1]+"\nどれ選ぶ？ 私の答えは、あなたが選んだらひらくよ👇\n"+link()}
+  function msg(){return "6万円で"+t.title[1]+"\n私がどれ選んだか、当ててみて👇\n"+link()}
   $("#ln").onclick=function(e){e.preventDefault();location.href="https://line.me/R/share?text="+encodeURIComponent(msg())};
   $("#cp").onclick=function(){copy(msg(),"リンクをコピーしました")};
   if($("#sh"))$("#sh").onclick=function(){navigator.share({text:msg()}).catch(function(){})};
@@ -301,35 +301,35 @@ function send(t,picks,name){
 function pickHim(t,her,picks){
   picks=picks||[-1,-1,-1];
   var done=picks.every(function(x){return x>=0}), n=her.n||"彼女";
-  app.innerHTML=hero(t,{pin:n+"から、お題が届いたよ",lead:"各行から1つずつ、合計6万円まで<p-q>。</p-q><br>あなたが選ぶと、"+esc(n)+"の答えがひらく<p-q>。</p-q>",extra:'<img class="mochi" src="mochi_pair_heart.svg" alt="">'})+
-    '<div class="from"><img src="mochi_orange_happy.svg" alt=""><div><b>'+esc(n)+'はもう答えたよ。あとはあなた</b><span>'+LOCK+'選ぶと、'+esc(n)+'の答えがひらく</span></div></div>'+
+  app.innerHTML=hero(t,{pin:n+"から、お題が届いたよ",lead:esc(n)+"がどれを選んだか、当ててみて<p-q>。</p-q><br>各行から1つずつ、合計6万円まで<p-q>。</p-q>",extra:'<img class="mochi" src="mochi_pair_heart.svg" alt="">'})+
+    '<div class="from"><img src="mochi_orange_happy.svg" alt=""><div><b>'+esc(n)+'はもう選んだよ。どれだと思う？</b><span>'+LOCK+'予想すると、'+esc(n)+'の答えがひらく</span></div></div>'+
     board(t,picks,"him")+'<div class="spacer"></div>'+bar(picks,"答え合わせ →",!done);
   app.querySelectorAll(".cell").forEach(function(b){b.onclick=function(){var r=+b.dataset.r,c=+b.dataset.c;picks[r]=picks[r]===c?-1:c;var y=scrollY;pickHim(t,her,picks);scrollTo(0,y)}});
   $("#go").onclick=function(){result(t,her.a,picks,n,"him");scrollTo(0,0)};
 }
 /* ---------- 4. 答え合わせ ---------- */
-var VERDICT=["ぜんぶズレた。話すこと、いっぱいあるね","1つだけ一致。ズレたところが、いちばん盛り上がる","2つ一致。かなり似てるふたり","完全一致。もはや同じ人"];
+var VERDICT=["ぜんぶハズレ。好み、じっくり聞いてみよう","1つ当たり。ハズレたところが、いちばん盛り上がる","2つ当たり。かなり分かってるふたり","ぜんぶ当たり。もはやエスパー"];
 function result(t,a,b,n,viewer){
   var same=a.filter(function(x,i){return x===b[i]}).length;
   var me=viewer==="him"?"あなた":n, mine=viewer==="him"?b:a, other=viewer==="him"?a:b;
   var meLbl=viewer==="him"?"あなた":"あなた", herLbl=viewer==="him"?n:"あなた", himLbl=viewer==="him"?"あなた":"彼";
   var rows=t.rows.map(function(r,i){
     var s=a[i]===b[i];
-    return '<div class="crow"><div class="rn"><b>'+esc(r.name)+'</b><em class="'+(s?"same":"")+'">'+(s?"おなじ！":Math.abs(a[i]-b[i])+"万円ちがう")+'</em></div><div class="pair">'+
+    return '<div class="crow"><div class="rn"><b>'+esc(r.name)+'</b><em class="'+(s?"same":"")+'">'+(s?"当たり！":"ハズレ・"+Math.abs(a[i]-b[i])+"万円ちがい")+'</em></div><div class="pair">'+
       '<figure><img src="'+img(t,i,a[i])+'" alt=""><figcaption>'+esc(r.labels[a[i]])+'<small>'+(a[i]+1)+'万円</small></figcaption></figure>'+
       '<figure class="h"><img src="'+img(t,i,b[i])+'" alt=""><figcaption>'+esc(r.labels[b[i]])+'<small>'+(b[i]+1)+'万円</small></figcaption></figure></div></div>';
   }).join("");
   var gap=-1,gi=0; t.rows.forEach(function(r,i){var d=Math.abs(a[i]-b[i]);if(d>gap){gap=d;gi=i}});
-  var talk=gap>0?"「"+t.rows[gi].name+"」で"+gap+"万円ちがう。そこにかけた理由、聞いてみて":"ぜんぶ同じ。じゃあ次は、ちがいそうなお題でもう一回";
-  app.innerHTML=hero(t,{pin:"答え合わせ",extra:'<div class="score">3つ中<b>'+same+'</b>つ一致</div><div class="verdict">'+esc(VERDICT[same])+'</div><img class="mochi" src="mochi_pair_hug.svg" alt="">'})+
-    '<section class="cmp"><div class="who"><span><img src="'+MOCHI.me+'" alt="">'+esc(herLbl)+'</span><span><img src="'+MOCHI.him+'" alt="">'+esc(himLbl)+'</span></div>'+rows+'</section>'+
+  var talk=gap>0?"「"+t.rows[gi].name+"」で"+gap+"万円ずれた。なんでそれを選んだか、聞いてみて":"ぜんぶ当たり。じゃあ次は、ちがうお題でもう一回";
+  app.innerHTML=hero(t,{pin:"答え合わせ",extra:'<div class="score">'+(viewer==="him"?"あなたの予想、":"彼の予想、")+'3つ中<b>'+same+'</b>つ当たり</div><div class="verdict">'+esc(VERDICT[same])+'</div><img class="mochi" src="mochi_pair_hug.svg" alt="">'})+
+    '<section class="cmp"><div class="who"><span><img src="'+MOCHI.me+'" alt="">'+esc(herLbl)+'の答え</span><span><img src="'+MOCHI.him+'" alt="">'+esc(himLbl)+'の予想</span></div>'+rows+'</section>'+
     '<div class="talk"><svg viewBox="0 0 24 24" fill="none" stroke="#2B1A1F" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h11a3 3 0 0 1 3 3v5a3 3 0 0 1-3 3H9l-4 3v-3H4a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3z"/><path d="M20 9a3 3 0 0 1 3 3v4a3 3 0 0 1-3 3h-1v3l-3-3"/></svg><div><small>答えがそろったよ。話してみよう</small><b>'+esc(talk)+'</b></div></div>'+
     (viewer==="him"?'<section class="sheet"><h2>結果を'+esc(n)+'にも<p-q>。</p-q></h2><p class="sub">'+esc(n)+'の画面にも、同じ答え合わせがひらきます。</p><div class="acts"><a class="btn line full" id="ln" href="#">LINEで'+esc(n)+'に送る</a><button type="button" class="btn ghost full" id="cp">リンクをコピー</button></div></section>':
       '<div style="padding:16px 12px 0"><button type="button" class="btn ghost full" id="again">別のお題で、もう一回</button></div>')+
     appBlock(viewer==="him"?"6man_result_him":"6man_result_her")+foot();
   if(viewer==="him"){
     var link=base()+"#r="+b64e({t:t.key,a:a,b:b,n:n});
-    var msg="答え合わせしたよ。"+same+"/3 一致👇\n"+link;
+    var msg="予想したよ。3つ中"+same+"つ当たり👇\n"+link;
     $("#ln").onclick=function(e){e.preventDefault();location.href="https://line.me/R/share?text="+encodeURIComponent(msg)};
     $("#cp").onclick=function(){copy(msg,"リンクをコピーしました")};
   }else{
