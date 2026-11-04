@@ -1738,7 +1738,7 @@ footer nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 8p
   /* ---------- App Store のリンク（App Store Connect のキャンペーンリンク。第三者の計測は使わない） ----------
      PT に App Store Connect の provider token を入れると、すべてのストアリンクに pt / ct が付き、
      App Analytics で導線ごとのダウンロード数が見られる。空のあいだは素のURL。 */
-  var PT="", APP="id6823712192";
+  var PT="127819629", APP="id6823712192";
   var heroCt=h.classList.contains("hero-b")?"_heroB":h.classList.contains("hero-a")?"_heroA":"";
   function store(ct,scheme){var u=(scheme||"https:")+"//apps.apple.com/jp/app/"+APP;if(PT)u+="?pt="+PT+"&ct="+encodeURIComponent(ct+heroCt)+"&mt=8";return u}
   d.querySelectorAll(".js-store").forEach(function(a){a.href=store(a.dataset.ct||"lp_web")});
