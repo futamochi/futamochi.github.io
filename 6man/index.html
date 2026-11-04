@@ -211,6 +211,7 @@ p-q{margin-right:-.42em}
 .nb{display:inline-block}
 .ttl .l2{white-space:nowrap}
 </style>
+<!-- Cloudflare Web Analytics（Cookieなし。答えの中身は送らない） --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "366df031895045e9a147272e0d267678", "spa": true}'></script>
 </head>
 <body>
 <div class="wrap" id="app"></div>
@@ -253,7 +254,10 @@ function copy(text,msg){
   if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(ok,fallback)}else fallback();
   function fallback(){var ta=document.createElement("textarea");ta.value=text;ta.setAttribute("readonly","");ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();try{document.execCommand("copy");ok()}catch(e){prompt("コピーしてね",text)}ta.remove()}
 }
-function base(){return location.origin+location.pathname}
+var HOME=/futamochi\.github\.io$/.test(location.hostname)?"https://futamochi.github.io/6man/":location.origin+location.pathname;
+function base(){return HOME}
+/* 段ごとの数（Cloudflare Web Analytics の SPA 計測）: /6man/e/<段>/ を一瞬だけ通る。答え（# 以降）は計測に乗らない */
+function ev(name){try{if(!/futamochi\.github\.io$/.test(location.hostname))return;var keep=location.pathname+location.search+location.hash;history.pushState(history.state,"","/6man/e/"+name+"/");history.replaceState(history.state,"",keep)}catch(e){}}
 var MOCHI={me:"mochi_orange_happy.svg",him:"mochi_sky_happy.svg"};
 function nextTheme(t){for(var i=0;i<LIVE.length;i++) if(LIVE[i].key!==t.key) return LIVE[i]; return t}
 /* App Store: アプリ内ブラウザでは itms-apps: で直接。開かずにページが見えたままなら、検索のやり方を出す（LPと同じ考え方） */
@@ -350,8 +354,8 @@ function appBlock(ct,o){
     followA()+'</section>';
 }
 function bindApp(){
-  var g=$("#gostore");if(g)g.onclick=function(){goStore(g.dataset.ct)};
-  var iv=$("#inv");if(iv)iv.onclick=function(e){e.preventDefault();location.href="https://line.me/R/share?text="+encodeURIComponent(INV)};
+  var g=$("#gostore");if(g)g.onclick=function(){ev("store_"+g.dataset.ct);goStore(g.dataset.ct)};
+  var iv=$("#inv");if(iv)iv.onclick=function(e){e.preventDefault();ev("invite_app");location.href="https://line.me/R/share?text="+encodeURIComponent(INV)};
   var tz=$("#tz");if(tz)tz.onclick=function(){var a=$("#h-app");if(a)a.scrollIntoView({behavior:"smooth",block:"start"})};
 }
 function foot(){return '<footer class="foot">答えはリンクの中だけ。どこにも保存されません。<br><a href="https://futamochi.github.io/">ふたもち</a> ・ <a href="https://meojpn.github.io/futamochi-legal/privacy.html">プライバシー</a></footer>'}
@@ -369,7 +373,7 @@ function pickMe(t,picks){
   if($("#who"))$("#who").onclick=function(){WHO=WHO==="o"?"k":"o";var y=scrollY;pickMe(t,picks);scrollTo(0,y)};
   app.querySelectorAll(".chip").forEach(function(b){b.onclick=function(){pickMe(byKey(b.dataset.k));scrollTo(0,0)}});
   app.querySelectorAll(".cell").forEach(function(b){b.onclick=function(){if(b.dataset.x){toast("予算が足りないよ。ほかの行を下げてね");return}var r=+b.dataset.r,c=+b.dataset.c;picks[r]=picks[r]===c?-1:c;var y=scrollY;pickMe(t,picks);scrollTo(0,y)}});
-  $("#go").onclick=function(){send(t,picks);scrollTo(0,0)};
+  $("#go").onclick=function(){ev("picked");send(t,picks);scrollTo(0,0)};
 }
 /* ---------- 2. 彼に送る ---------- */
 function send(t,picks,name,gift){
@@ -388,10 +392,10 @@ function send(t,picks,name,gift){
   function gv(){return $("#gf").value.trim().slice(0,16)}
   function link(){var n=$("#nm").value.trim().slice(0,10),o={t:t.key,a:picks,n:n,o:OSV};if(WHO!=="k")o.w=WHO;if(gv())o.g=gv();return base()+"#p="+b64e(o)}
   function msg(){return "6万円で"+t.title[1]+"\n"+(WHO==="r"?"自分ならこう組んだ。どれか当ててみて":"私がどれ選んだか、当ててみて")+"（3つ選ぶだけ）"+(gv()?"\nぜんぶ当たったら："+gv():"")+"👇\n"+link()}
-  $("#ln").onclick=function(e){e.preventDefault();location.href="https://line.me/R/share?text="+encodeURIComponent(msg())};
-  $("#cp").onclick=function(){copy(msg(),"リンクをコピーしました")};
-  if($("#sh"))$("#sh").onclick=function(){navigator.share({text:msg()}).catch(function(){})};
-  $("#cc").onclick=function(){copy(combo(t,picks),"コピーしたよ。インスタのコメントに貼ってね")};
+  $("#ln").onclick=function(e){e.preventDefault();ev("send_line");location.href="https://line.me/R/share?text="+encodeURIComponent(msg())};
+  $("#cp").onclick=function(){ev("send_copy");copy(msg(),"リンクをコピーしました")};
+  if($("#sh"))$("#sh").onclick=function(){ev("send_share");navigator.share({text:msg()}).catch(function(){})};
+  $("#cc").onclick=function(){ev("copy_combo");copy(combo(t,picks),"コピーしたよ。インスタのコメントに貼ってね")};
   $("#bk").onclick=function(){pickMe(t,picks.slice())};
 }
 /* ---------- 3. 彼が選ぶ ---------- */
@@ -403,7 +407,7 @@ function pickHim(t,her,picks){
     '<div class="from"><img src="mochi_orange_happy.svg" alt=""><div><b>'+esc(n)+'はもう選んだよ。どれだと思う？</b><span>'+LOCK+'予想すると、'+esc(n)+'の答えがひらく</span></div></div>'+
     board(t,picks,"him",n+"はどれ？")+'<div class="spacer"></div>'+bar(picks,"答え合わせ →",!done);
   app.querySelectorAll(".cell").forEach(function(b){b.onclick=function(){if(b.dataset.x){toast("予算が足りないよ。ほかの行を下げてね");return}var r=+b.dataset.r,c=+b.dataset.c;picks[r]=picks[r]===c?-1:c;var y=scrollY;pickHim(t,her,picks);scrollTo(0,y)}});
-  $("#go").onclick=function(){result(t,her.a,picks,n,"him",{w:w,g:her.g,po:her.o});scrollTo(0,0)};
+  $("#go").onclick=function(){ev("him_done");result(t,her.a,picks,n,"him",{w:w,g:her.g,po:her.o});scrollTo(0,0)};
 }
 /* ---------- 4. 答え合わせ ---------- */
 var VERDICT=["ぜんぶハズレ。逆に、話すことが3つある","1つ当たり。ハズレたところが、いちばん盛り上がる","2つ当たり。かなり分かってるふたり","ぜんぶ当たり。もはやエスパー"];
@@ -436,19 +440,22 @@ function result(t,a,b,n,viewer,x){
     var ro={t:t.key,a:a,b:b,n:n,o2:OSV};if(w!=="k")ro.w=w;if(x.g)ro.g=x.g;
     var link=base()+"#r="+b64e(ro);
     var msg="予想したよ。3つ中"+same+"つ当たり"+(gap>0?"\n「"+t.rows[gi].name+"」、なんでそれ？":"")+"👇\n"+link;
-    var sendBack=function(e){e.preventDefault();$("#hb").hidden=true;location.href="https://line.me/R/share?text="+encodeURIComponent(msg)};
+    var sendBack=function(e){e.preventDefault();ev("back_line");$("#hb").hidden=true;location.href="https://line.me/R/share?text="+encodeURIComponent(msg)};
     $("#ln").onclick=sendBack;$("#ln2").onclick=sendBack;
-    $("#cp").onclick=function(){copy(msg,"リンクをコピーしました")};
-    if($("#rev"))$("#rev").onclick=function(){WHO="r";PN=n;location.hash="";pickMe(nextTheme(t));scrollTo(0,0)};
+    $("#cp").onclick=function(){ev("back_copy");copy(msg,"リンクをコピーしました")};
+    if($("#rev"))$("#rev").onclick=function(){ev("reverse");WHO="r";PN=n;location.hash="";pickMe(nextTheme(t));scrollTo(0,0)};
   }else{
-    $("#again").onclick=function(){location.hash="";pickMe(nextTheme(t));scrollTo(0,0)};
+    $("#again").onclick=function(){ev("again");location.hash="";pickMe(nextTheme(t));scrollTo(0,0)};
   }
 }
 /* ---------- 入口 ---------- */
+/* 入口の段は、計測の読み込みを待ってから数える */
+function later(n){setTimeout(function(){ev(n)},2500)}
 function route(){
+  var src=QS.get("s"); if(src&&/^\w{1,12}$/.test(src)) later("from_"+src);
   var h=location.hash.slice(1), m;
-  if((m=h.match(/^p=(.+)$/))){var d=b64d(m[1]);if(d&&d.a&&d.a.length===3){return pickHim(byKey(d.t),d)}}
-  if((m=h.match(/^r=(.+)$/))){var r=b64d(m[1]);if(r&&r.a&&r.b){WHO=r.w==="o"||r.w==="r"?r.w:"k";return result(byKey(r.t),r.a,r.b,r.n||"",'her',r)}}
+  if((m=h.match(/^p=(.+)$/))){var d=b64d(m[1]);if(d&&d.a&&d.a.length===3){later("him_open");return pickHim(byKey(d.t),d)}}
+  if((m=h.match(/^r=(.+)$/))){var r=b64d(m[1]);if(r&&r.a&&r.b){later("her_result");WHO=r.w==="o"||r.w==="r"?r.w:"k";return result(byKey(r.t),r.a,r.b,r.n||"",'her',r)}}
   if((m=h.match(/^t=(\w+)(?:&p=([0-2]{3}))?(&s=1)?$/))){var pk=m[2]?m[2].split("").map(Number):null;return m[3]&&pk?send(byKey(m[1]),pk):pickMe(byKey(m[1]),pk)}
   if(QS.get("t")) return pickMe(byKey(QS.get("t")));
   pickMe(LIVE[0]);
