@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#3A1F29">
+<meta name="referrer" content="no-referrer">
+<title>6万円の答え合わせ｜ふたもち</title>
+<meta name="description" content="6万円で、どう組む？ 各行から1つずつ選んで、彼にも同じ表を。ふたりの答えは、そろったらひらく。">
+<meta property="og:title" content="6万円で、どう組む？｜ふたりの答え合わせ">
+<meta property="og:description" content="各行から1つずつ、合計6万円まで。ふたりの答えは、そろったらひらく。">
+<meta property="og:image" content="https://futamochi.github.io/6man/og.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+@font-face{font-family:"FM Display";src:url(fm-display.woff) format("woff");font-weight:900;font-display:swap}
+:root{
+  --azuki:#3A1F29;--azuki-3:#4A2633;--azuki-4:#5C3644;--cream:#FBF6F0;--paper:#FFF8F1;
+  --ink:#2B1A1F;--ink-2:#66575C;--ink-3:#8A7B80;--line:#EEE5DD;
+  --sakura:#FFC9D6;--sakura-1:#FFEEF2;--kuri:#FFE39A;--love:#FF4F6D;--c-sakura:#C9507A;
+  --me:#FF8E5E;--me-t:#B04318;--pt:#8FCBFF;--pt-s:#5EB0F5;--pt-t:#1F6FB8;--fuji:#EFEAFF;
+  --display:"FM Display","Hiragino Maru Gothic ProN","Hiragino Sans",ui-rounded,system-ui,sans-serif;
+  --body:"Hiragino Maru Gothic ProN","Hiragino Sans",ui-rounded,-apple-system,system-ui,sans-serif;
+  --spring:cubic-bezier(.34,1.56,.64,1);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;overflow-x:clip}
+body{background:var(--cream);color:var(--ink);font-family:var(--body);font-weight:700;-webkit-text-size-adjust:100%;line-height:1.6}
+button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:pointer}
+img{display:block;max-width:100%}
+a{color:inherit}
+p-q{margin-right:-.42em}
+.wrap{max-width:440px;margin:0 auto}
+
+/* ---------- hero (LPと同じ: あずきの地に、白とさくらの札) ---------- */
+.hero{position:relative;background:var(--azuki);color:#fff;padding:calc(env(safe-area-inset-top) + 14px) 16px 52px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 60% at 85% 0%,rgba(255,201,214,.16),transparent 60%),radial-gradient(90% 50% at 0% 100%,rgba(143,203,255,.10),transparent 60%);pointer-events:none}
+.brand{position:relative;display:flex;align-items:center;gap:8px;font-family:var(--display);font-size:15px;letter-spacing:.02em}
+.brand img{width:26px;height:26px;border-radius:7px}
+.brand small{font-family:var(--body);font-size:11.5px;font-weight:800;opacity:.72;letter-spacing:.04em}
+.pin{display:inline-block;margin-top:22px;font-size:12.5px;font-weight:900;background:var(--kuri);color:var(--ink);border-radius:9px;padding:3px 10px;transform:rotate(-1.5deg)}
+.ttl{position:relative;margin:12px 0 0;font-family:var(--display);font-weight:900;line-height:1.08;letter-spacing:-.01em}
+.ttl span{display:inline-block;padding:4px 12px 6px;border-radius:12px;box-shadow:0 5px 0 rgba(0,0,0,.18)}
+.ttl .l1{background:#fff;color:var(--ink);font-size:clamp(30px,9vw,38px);transform:rotate(-1.2deg)}
+.ttl .l1 em{font-style:normal;color:var(--love)}
+.ttl .l2{margin-top:6px;background:var(--sakura);color:var(--ink);font-size:clamp(25px,7.4vw,31px);transform:rotate(.8deg)}
+.lead{position:relative;margin:16px 0 0;font-size:13.5px;font-weight:800;line-height:1.7;color:rgba(255,255,255,.86)}
+.hero .mochi{position:absolute;right:12px;bottom:26px;width:84px;opacity:.98}
+.wave{display:block;width:100%;height:28px;margin-top:-27px;position:relative}
+
+/* ---------- お題を選ぶ ---------- */
+.themes{padding:4px 0 0}
+.themes .lbl{padding:0 16px;font-size:12px;font-weight:900;color:var(--c-sakura);letter-spacing:.06em}
+.chips{display:flex;gap:7px;overflow-x:auto;padding:8px 16px 4px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;height:34px;padding:0 13px;border-radius:17px;background:#fff;font-size:13px;font-weight:900;box-shadow:inset 0 0 0 1.5px var(--line);white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--azuki);color:#fff;box-shadow:none}
+.chip .nw{display:inline-block;margin-left:5px;font-size:10px;background:var(--kuri);color:var(--ink);border-radius:6px;padding:0 5px;vertical-align:1px}
+
+/* ---------- 表 ---------- */
+.board{margin:12px 12px 0;border-radius:26px;background:#fff;padding:14px 10px 6px;box-shadow:0 14px 34px rgba(120,60,80,.12),0 0 0 1px rgba(43,26,31,.05)}
+.row{padding:0 2px 12px}
+.row+.row{border-top:1.5px dashed var(--line);padding-top:12px}
+.rh{display:flex;align-items:baseline;justify-content:space-between;padding:0 4px 8px}
+.rh b{font-family:var(--display);font-size:19px;letter-spacing:.01em}
+.rh small{font-size:11.5px;font-weight:900;color:var(--ink-3)}
+.rh small.on{color:var(--c-sakura)}
+.cells{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.cell{position:relative;display:flex;flex-direction:column;border-radius:16px;background:#F7F1EC;padding:4px 4px 0;box-shadow:inset 0 0 0 1.5px var(--line);transition:transform .2s var(--spring),box-shadow .2s,background .2s,opacity .2s;text-align:center}
+.cell:active{transform:scale(.95)}
+.cell .im{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:1/0.86;background:#EFE7E0}
+.cell .im img{width:100%;height:100%;object-fit:cover}
+.cell .pr{position:absolute;left:5px;top:5px;font-family:var(--display);font-size:11px;line-height:1;padding:4px 6px 5px;border-radius:8px;background:rgba(43,26,31,.82);color:#fff}
+.cell .lb{display:flex;align-items:center;justify-content:center;min-height:40px;padding:4px 2px 6px;font-size:12.5px;font-weight:900;line-height:1.25}
+.cell[aria-pressed="true"]{background:var(--sakura-1);box-shadow:inset 0 0 0 2.5px var(--love)}
+.cell .ck{position:absolute;right:-5px;top:-6px;width:28px;height:28px;border-radius:50%;background:var(--me) url(mochi_orange_happy.svg) center/24px no-repeat;box-shadow:0 0 0 2.5px #fff;transform:scale(0);transition:transform .25s var(--spring)}
+.him .cell .ck{background-color:var(--pt-s);background-image:url(mochi_sky_happy.svg)}
+.him .cell[aria-pressed="true"]{background:#EEF6FF;box-shadow:inset 0 0 0 2.5px var(--pt-s)}
+.cell[aria-pressed="true"] .ck{transform:scale(1)}
+.cell:disabled{opacity:.34;cursor:default}
+.cell:disabled .lb::after{content:"予算オーバー";position:absolute;left:0;right:0;top:34%;font-size:10.5px;font-weight:900;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5)}
+.note{margin:12px 20px 0;font-size:12px;font-weight:800;color:var(--ink-3);line-height:1.7}
+
+/* ---------- 下の予算バー ---------- */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 -8px 24px rgba(74,38,51,.10);padding:10px 14px calc(env(safe-area-inset-bottom) + 10px)}
+.bar .in{max-width:420px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.bud{flex:1;min-width:0}
+.bud small{display:block;font-size:11px;font-weight:900;color:var(--ink-3)}
+.bud b{font-family:var(--display);font-size:22px;line-height:1.1}
+.coins{display:flex;gap:4px;margin-top:4px}
+.coins i{width:13px;height:13px;border-radius:50%;background:var(--kuri);box-shadow:inset 0 0 0 1.5px #E7C35A}
+.coins i.u{background:#EFE7E0;box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 20px;border-radius:26px;background:var(--azuki);color:#fff;font-family:var(--display);font-size:16px;letter-spacing:.02em;text-decoration:none;box-shadow:0 5px 0 rgba(0,0,0,.18);transition:transform .2s var(--spring),opacity .2s}
+.btn:active{transform:translateY(2px) scale(.98)}
+.btn:disabled{opacity:.3;box-shadow:none}
+.btn.line{background:#06C755}
+.btn.ghost{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 2px var(--line)}
+.btn.full{width:100%}
+.btn svg{width:18px;height:18px}
+.spacer{height:110px}
+
+/* ---------- 送る ---------- */
+.sheet{margin:14px 12px 0;border-radius:26px;background:#fff;padding:18px 16px;box-shadow:0 14px 34px rgba(120,60,80,.12),0 0 0 1px rgba(43,26,31,.05)}
+.sheet h2{margin:0;font-family:var(--display);font-size:22px;line-height:1.3}
+.sheet .sub{margin:6px 0 0;font-size:12.5px;font-weight:800;color:var(--ink-2)}
+.mine{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:14px}
+.mine figure{margin:0;border-radius:14px;background:var(--sakura-1);padding:4px 4px 6px;text-align:center}
+.mine figure img{border-radius:10px;aspect-ratio:1/0.86;object-fit:cover;width:100%}
+.mine figcaption{margin-top:5px;font-size:11px;font-weight:900;line-height:1.3}
+.mine figcaption small{display:block;color:var(--ink-3);font-size:10px}
+.combo{margin-top:12px;padding:10px 12px;border-radius:14px;background:#F7F1EC;text-align:center}
+.combo small{display:block;font-size:11px;font-weight:900;color:var(--ink-3)}
+.combo b{display:block;margin-top:2px;font-family:var(--display);font-size:clamp(15px,4.6vw,18px);white-space:nowrap}
+.combo button{margin-top:8px;height:32px;padding:0 14px;border-radius:12px;background:#fff;font-size:12px;font-weight:900;box-shadow:inset 0 0 0 1.5px var(--line)}
+.field{margin-top:16px}
+.field label{display:block;font-size:12px;font-weight:900;color:var(--ink-2)}
+.field input{width:100%;height:46px;margin-top:6px;padding:0 14px;border-radius:14px;border:0;background:#F7F1EC;box-shadow:inset 0 0 0 1.5px var(--line);font:inherit;font-size:16px;font-weight:800;color:var(--ink)}
+.field input:focus{outline:none;box-shadow:inset 0 0 0 2.5px var(--love)}
+.acts{display:grid;gap:9px;margin-top:16px}
+.lock{display:flex;align-items:center;gap:8px;margin-top:12px;padding:10px 12px;border-radius:14px;background:#F5EEE7;font-size:12px;font-weight:900;color:var(--ink-2);line-height:1.5}
+.lock svg{flex:none;width:16px;height:16px}
+.back{display:block;margin:14px auto 0;font-size:12.5px;font-weight:900;color:var(--ink-3);text-decoration:underline;text-underline-offset:3px}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 96px);z-index:30;transform:translate(-50%,20px);opacity:0;padding:9px 16px;border-radius:14px;background:var(--ink);color:#fff;font-size:13px;font-weight:900;transition:.25s;pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- 届いた（彼の画面） ---------- */
+.from{margin:14px 12px 0;display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:18px;background:#fff;box-shadow:0 0 0 1px rgba(43,26,31,.05),0 10px 24px rgba(120,60,80,.08)}
+.from img{width:36px;height:36px}
+.from b{display:block;font-size:13.5px;font-weight:900}
+.from span{display:inline-flex;align-items:center;gap:5px;margin-top:2px;padding:2px 8px;border-radius:8px;background:#F5EEE7;font-size:11.5px;font-weight:900;color:var(--ink-2)}
+.from span svg{width:12px;height:12px}
+
+/* ---------- 答え合わせ ---------- */
+.score{position:relative;margin-top:16px;font-family:var(--display);font-size:20px;line-height:1}
+.score b{font-size:58px;color:var(--kuri);margin:0 4px;vertical-align:-6px}
+.verdict{position:relative;display:inline-block;margin-top:14px;max-width:calc(100% - 70px);font-family:var(--display);font-size:16px;line-height:1.4;background:#fff;color:var(--ink);border-radius:12px;padding:5px 12px 7px;transform:rotate(-1deg);box-shadow:0 4px 0 rgba(0,0,0,.18)}
+.cmp{margin:14px 12px 0;border-radius:26px;background:#fff;padding:12px 10px;box-shadow:0 14px 34px rgba(120,60,80,.12),0 0 0 1px rgba(43,26,31,.05)}
+.who{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 4px 8px;font-size:12px;font-weight:900}
+.who span{display:flex;align-items:center;gap:5px}
+.who img{width:20px;height:20px}
+.crow{padding:10px 2px}
+.crow+.crow{border-top:1.5px dashed var(--line)}
+.crow .rn{display:flex;align-items:center;justify-content:space-between;padding:0 4px 7px}
+.crow .rn b{font-family:var(--display);font-size:17px}
+.crow .rn em{font-style:normal;font-size:11px;font-weight:900;padding:3px 8px;border-radius:8px;background:#F5EEE7;color:var(--ink-2)}
+.crow .rn em.same{background:var(--kuri);color:var(--ink)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pair figure{margin:0;border-radius:14px;padding:4px 4px 6px;background:var(--sakura-1);text-align:center}
+.pair figure.h{background:#EEF6FF}
+.pair img{border-radius:10px;aspect-ratio:1/0.86;object-fit:cover;width:100%}
+.pair figcaption{margin-top:5px;font-size:12px;font-weight:900;line-height:1.3}
+.pair figcaption small{display:block;font-size:10px;color:var(--ink-3)}
+.talk{margin:12px 12px 0;display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:18px;background:var(--fuji)}
+.talk svg{flex:none;width:22px;height:22px;margin-top:2px}
+.talk small{display:block;font-size:11px;font-weight:900;color:var(--ink-2)}
+.talk b{font-size:14px;font-weight:900;line-height:1.5}
+
+/* ---------- ふたもち（遊んだあとにだけ出す） ---------- */
+.app{margin:28px 0 0;padding:26px 16px 8px;background:var(--paper);border-top:1.5px solid var(--line)}
+.app .tag{font-size:13px;font-weight:900;letter-spacing:.06em;color:var(--c-sakura)}
+.app h2{margin:6px 0 0;font-family:var(--display);font-size:clamp(25px,7.2vw,30px);line-height:1.24;letter-spacing:-.01em}
+.app p{margin:10px 0 0;font-size:13.5px;font-weight:800;color:var(--ink-2);line-height:1.75}
+.app .shot{position:relative;margin:16px auto 0;width:min(78%,300px);border-radius:28px;overflow:hidden;box-shadow:0 18px 40px rgba(74,38,51,.18),0 0 0 1px rgba(43,26,31,.06)}
+.app .shot img{width:100%}
+.store{display:flex;align-items:center;gap:12px;margin-top:18px;padding:12px;border-radius:20px;background:#fff;text-decoration:none;box-shadow:0 0 0 1px rgba(43,26,31,.06),0 10px 24px rgba(120,60,80,.08)}
+.store img{width:56px;height:56px;border-radius:13px}
+.store .t{flex:1;min-width:0}
+.store .t b{display:block;font-size:13.5px;font-weight:900;line-height:1.35}
+.store .t span{display:block;margin-top:2px;font-size:11px;font-weight:800;color:var(--ink-3);line-height:1.4}
+.store .gt{flex:none;height:32px;padding:0 16px;border-radius:16px;background:#EEF0F6;color:#2F6FED;font-size:14px;font-weight:900;line-height:32px}
+.req{margin:10px 0 0;font-size:11px;font-weight:800;color:var(--ink-3);line-height:1.6}
+.follow{display:flex;align-items:center;gap:10px;margin:18px 0 0;padding:12px 14px;border-radius:18px;background:#fff;text-decoration:none;box-shadow:0 0 0 1px rgba(43,26,31,.06)}
+.follow img{width:34px}
+.follow b{display:block;font-size:13px;font-weight:900}
+.follow span{font-size:11.5px;font-weight:800;color:var(--ink-3)}
+.foot{padding:22px 16px calc(env(safe-area-inset-bottom) + 28px);font-size:10.5px;font-weight:800;color:var(--ink-3);text-align:center;line-height:1.7}
+.foot a{color:inherit}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script id="themes" type="application/json">[{"id":"s10-6man-kareshi","title":["6万円で","彼氏つくるなら？"],"rows":[{"name":"見た目","labels":["うーん…","ふつう","どタイプ"]},{"name":"身長","labels":["160cm","173cm","185cm"]},{"name":"性格","labels":["チャラい","そっけない","一途"]}],"band":"あなたならどう組む？コメントで教えて","key":"kareshi","short":"彼氏","date":"2026-10-30"},{"id":"m01-kekkon","title":["6万円で","結婚相手つくるなら？"],"rows":[{"name":"年収","labels":["300万","500万","1000万"]},{"name":"家事","labels":["見て見ぬふり","言えばやる","言う前にやる"]},{"name":"義実家","labels":["口出し多め","ふつう","神すぎる"]}],"band":"年収・家事・義実家、どう組む？","key":"kekkon","short":"結婚相手","date":"2026-10-31"},{"id":"m02-fetish","title":["6万円で","ときめく彼つくるなら？"],"rows":[{"name":"声","labels":["すぐ裏返る","安心する声","低音ボイス"]},{"name":"手","labels":["赤ちゃんの手","あったかい手","骨ばった手"]},{"name":"香り","labels":["餃子の余韻","柔軟剤の香り","ふわっと甘い"]}],"band":"声派？手派？香り派？コメントで教えて","key":"tokimeku","short":"ときめく彼","date":"2026-11-01"},{"id":"m03-kenka","title":["6万円で","ケンカ後の彼つくるなら？"],"rows":[{"name":"謝る早さ","labels":["3日後に気づく","翌朝に一言","すぐ追いかける"]},{"name":"態度","labels":["ふてくされ","しょんぼり","目を見て謝る"]},{"name":"お詫び","labels":["スタンプ1個","好きなお菓子","高級ディナー"]}],"band":"どこで許す？コメントで教えて","key":"kenka","short":"ケンカ後の彼","date":"2026-11-02"},{"id":"m04-oshikatsu","title":["6万円で","推し活の彼つくるなら？"],"rows":[{"name":"反応","labels":["「また？」","「楽しんで」","「最高じゃん」"]},{"name":"遠征","labels":["ホテルで寝てる","車で送迎","一緒に参戦"]},{"name":"グッズ","labels":["「多くない？」","見守る","専用棚を作る"]}],"band":"推し活を守れる彼、どう組む？","key":"oshi","short":"推し活の彼","date":"2026-11-03"},{"id":"m05-dousei","title":["6万円で","同棲の彼つくるなら？"],"rows":[{"name":"休日","labels":["ずっとゲーム","一緒に映画","膝枕でなでなで"]},{"name":"帰宅","labels":["手だけ振る","「おかえり」","玄関でハグ"]},{"name":"寝るとき","labels":["いびき爆音","おやすみ","腕まくら"]}],"band":"一緒に住むなら、どう組む？","key":"dousei","short":"同棲の彼","date":"2026-11-04"},{"id":"m06-propose","title":["6万円で","プロポーズつくるなら？"],"rows":[{"name":"場所","labels":["コタツの中","レストラン","夜景スポット"]},{"name":"セリフ","labels":["「結婚する？」","「ずっと一緒」","「一生守る」"]},{"name":"指輪","labels":["ガチャの指輪","シンプル","キラキラ箱パカ"]}],"band":"されたいプロポーズ、どう組む？","key":"propose","short":"プロポーズ","date":"2026-11-05"}]</script>
+<script>
+(function(){
+"use strict";
+var THEMES=JSON.parse(document.getElementById("themes").textContent);
+var STORE="https://apps.apple.com/jp/app/id6823712192", PT="";
+function store(ct){return STORE+(PT?"?pt="+PT+"&ct="+encodeURIComponent(ct)+"&mt=8":"")}
+var IG="https://www.instagram.com/futamochi.app/";
+var $=function(s,r){return (r||document).querySelector(s)};
+var app=$("#app");
+var today=new Date(); var tstr=today.getFullYear()+"-"+String(today.getMonth()+1).padStart(2,"0")+"-"+String(today.getDate()).padStart(2,"0");
+var LIVE=THEMES.filter(function(t){return t.date<=tstr}).sort(function(a,b){return a.date<b.date?1:-1});
+if(!LIVE.length) LIVE=THEMES.slice();
+function byKey(k){for(var i=0;i<THEMES.length;i++) if(THEMES[i].key===k) return THEMES[i]; return LIVE[0]}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function kq(s){return esc(s).replace(/([、。])/g,"<p-q>$1</p-q>")}
+function img(t,r,c){return "cells/"+t.id+"_"+r+c+".webp"}
+function b64e(o){var s=unescape(encodeURIComponent(JSON.stringify(o)));return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")}
+function b64d(s){try{s=s.replace(/-/g,"+").replace(/_/g,"/");return JSON.parse(decodeURIComponent(escape(atob(s))))}catch(e){return null}}
+function combo(t,a){return t.rows.map(function(r,i){return r.name+(a[i]+1)}).join("・")}
+function sum(a){return a.reduce(function(x,y){return x+(y+1)},0)}
+function toast(m){var e=$("#toast");e.textContent=m;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(function(){e.classList.remove("on")},1800)}
+function copy(text,msg){
+  function ok(){toast(msg||"コピーしました")}
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(ok,fallback)}else fallback();
+  function fallback(){var ta=document.createElement("textarea");ta.value=text;ta.setAttribute("readonly","");ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();try{document.execCommand("copy");ok()}catch(e){prompt("コピーしてね",text)}ta.remove()}
+}
+function base(){return location.origin+location.pathname}
+var MOCHI={me:"mochi_orange_happy.svg",him:"mochi_sky_happy.svg"};
+var LOCK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+var WAVE='<svg class="wave" viewBox="0 0 400 28" preserveAspectRatio="none" aria-hidden="true"><path d="M0 28V12c40 10 80 14 130 6S230-2 280 6s80 18 120 8v14z" fill="#FBF6F0"/></svg>';
+
+function hero(t,opt){
+  opt=opt||{};
+  return '<header class="hero">'+
+    '<div class="brand"><img src="icon-46@3x.webp" alt="">ふたもち<small>6万円の答え合わせ</small></div>'+
+    (opt.pin?'<span class="pin">'+esc(opt.pin)+'</span>':'')+
+    '<h1 class="ttl"><span class="l1"><em>6万円</em>で</span><br><span class="l2">'+esc(t.title[1])+'</span></h1>'+
+    (opt.lead?'<p class="lead">'+opt.lead+'</p>':'')+
+    (opt.extra||'')+
+    '</header>'+WAVE;
+}
+function board(t,picks,side){
+  var html='<section class="board'+(side==="him"?" him":"")+'" aria-label="表">';
+  var left=6-sum(picks.filter(function(x){return x>=0}));
+  t.rows.forEach(function(r,i){
+    var others=picks.filter(function(x,j){return j!==i&&x<0}).length; // まだ選んでいない、ほかの行
+    var budget=left+(picks[i]>=0?picks[i]+1:0);
+    html+='<div class="row"><div class="rh"><b>'+esc(r.name)+'</b><small class="'+(picks[i]>=0?"on":"")+'">'+(picks[i]>=0?"えらんだ："+(picks[i]+1)+"万円":"1つえらぶ")+'</small></div><div class="cells">';
+    r.labels.forEach(function(lb,c){
+      var cost=c+1, ok=cost<=budget-others;
+      html+='<button type="button" class="cell" data-r="'+i+'" data-c="'+c+'" aria-pressed="'+(picks[i]===c)+'"'+(ok?"":" disabled")+'>'+
+        '<span class="im"><img src="'+img(t,i,c)+'" alt="" loading="'+(i<1?"eager":"lazy")+'" decoding="async"><span class="pr">'+cost+'万円</span></span>'+
+        '<span class="lb">'+esc(lb)+'</span><i class="ck" aria-hidden="true"></i></button>';
+    });
+    html+='</div></div>';
+  });
+  return html+'</section>';
+}
+function bar(picks,label,disabled){
+  var used=sum(picks.filter(function(x){return x>=0})), left=6-used, coins="";
+  for(var i=0;i<6;i++) coins+='<i class="'+(i<used?"":"u")+'"></i>';
+  return '<div class="bar"><div class="in"><div class="bud"><small>のこり</small><b>'+left+'万円</b><div class="coins" aria-hidden="true">'+coins+'</div></div>'+
+    '<button type="button" class="btn" id="go"'+(disabled?" disabled":"")+'>'+label+'</button></div></div>';
+}
+function chips(t){
+  var h='<div class="themes"><div class="lbl">ほかのお題</div><div class="chips" role="group" aria-label="お題">';
+  LIVE.forEach(function(x,i){h+='<button type="button" class="chip" data-k="'+x.key+'" aria-pressed="'+(x.key===t.key)+'">'+esc(x.short)+(i===0?'<span class="nw">きょう</span>':'')+'</button>'});
+  return h+'</div></div>';
+}
+function appBlock(ct){
+  return '<section class="app" aria-labelledby="h-app"><div class="tag">ふたもち</div>'+
+    '<h2 id="h-app">この答え合わせを<p-q>、</p-q><br>毎日ふたりで<p-q>。</p-q></h2>'+
+    '<p>ふたもちの「今日の質問」は、自分が答えると、相手の答えがひらく。毎日ひとつ、ふたりに届くよ。</p>'+
+    '<div class="shot"><img src="real_play_question.jpg" alt="ふたもちの今日の質問の画面" loading="lazy" decoding="async"></div>'+
+    '<a class="store" href="'+store(ct)+'"><img src="icon-64@3x.webp" alt=""><span class="t"><b>ふたもち：カップルアプリ＆記念日ウィジェット</b><span>App Storeで「ふたもち」と検索しても出てくるよ</span></span><span class="gt">入手</span></a>'+
+    '<p class="req">ふたりともiPhone（iOS 18以降）が必要です・ダウンロード無料（App内課金あり）・ひとりの購入でふたりとも使えます</p>'+
+    '<a class="follow" href="'+IG+'"><img src="mochi_pair_hug.svg" alt=""><span><b>新しい6万円のお題は、毎日18:30</b><span>インスタ @futamochi.app でフォローしてね</span></span></a>'+
+    '</section>';
+}
+function foot(){return '<footer class="foot">答えはリンクの中だけ。どこにも保存されません。<br><a href="https://futamochi.github.io/">ふたもち</a> ・ <a href="https://meojpn.github.io/futamochi-legal/privacy.html">プライバシー</a></footer>'}
+
+/* ---------- 1. 自分で選ぶ ---------- */
+function pickMe(t,picks){
+  picks=picks||[-1,-1,-1];
+  var done=picks.every(function(x){return x>=0});
+  app.innerHTML=hero(t,{pin:"さっきのお題、ここで彼とできるよ",lead:"各行から1つずつ、合計6万円まで<p-q>。</p-q><br>選んだら、彼にも同じ表を<p-q>。</p-q>ふたりの答えは、そろったらひらく<p-q>。</p-q>",extra:'<img class="mochi" src="mochi_pair_heart.svg" alt="">'})+
+    chips(t)+board(t,picks,"me")+'<p class="note">答えはリンクの中だけ。どこにも保存されません。</p><div class="spacer"></div>'+
+    bar(picks,"彼に送る →",!done);
+  app.querySelectorAll(".chip").forEach(function(b){b.onclick=function(){pickMe(byKey(b.dataset.k));scrollTo(0,0)}});
+  app.querySelectorAll(".cell").forEach(function(b){b.onclick=function(){var r=+b.dataset.r,c=+b.dataset.c;picks[r]=picks[r]===c?-1:c;var y=scrollY;pickMe(t,picks);scrollTo(0,y)}});
+  $("#go").onclick=function(){send(t,picks);scrollTo(0,0)};
+}
+/* ---------- 2. 彼に送る ---------- */
+function send(t,picks,name){
+  var mine=t.rows.map(function(r,i){return '<figure><img src="'+img(t,i,picks[i])+'" alt=""><figcaption>'+esc(r.labels[picks[i]])+'<small>'+esc(r.name)+'・'+(picks[i]+1)+'万円</small></figcaption></figure>'}).join("");
+  app.innerHTML=hero(t,{pin:"あなたの答え、できたよ"})+
+    '<section class="sheet"><h2>彼にも、同じ表を<p-q>。</p-q></h2><p class="sub">彼が選び終わると、ふたりの答えがならんでひらきます。</p>'+
+    '<div class="mine">'+mine+'</div>'+
+    '<div class="combo"><small>インスタのコメントにも書いてね</small><b>'+esc(combo(t,picks))+'</b><button type="button" id="cc">この組み合わせをコピー</button></div>'+
+    '<div class="field"><label for="nm">彼の画面に出る、あなたの名前（なくてもOK）</label><input id="nm" maxlength="10" placeholder="例：あおい" value="'+esc(name||"")+'" autocomplete="off"></div>'+
+    '<div class="acts"><a class="btn line full" id="ln" href="#">LINEで彼に送る</a><button type="button" class="btn ghost full" id="cp">リンクをコピー</button>'+(navigator.share?'<button type="button" class="btn ghost full" id="sh">ほかのアプリで送る</button>':'')+'</div>'+
+    '<div class="lock">'+LOCK+'あなたの答えは、彼が選ぶまでひらきません。</div>'+
+    '<button type="button" class="back" id="bk">選びなおす</button></section>'+
+    appBlock("6man_send")+foot();
+  function link(){var n=$("#nm").value.trim().slice(0,10);return base()+"#p="+b64e({t:t.key,a:picks,n:n})}
+  function msg(){return "6万円で"+t.title[1]+"\nどれ選ぶ？ 私の答えは、あなたが選んだらひらくよ👇\n"+link()}
+  $("#ln").onclick=function(e){e.preventDefault();location.href="https://line.me/R/share?text="+encodeURIComponent(msg())};
+  $("#cp").onclick=function(){copy(msg(),"リンクをコピーしました")};
+  if($("#sh"))$("#sh").onclick=function(){navigator.share({text:msg()}).catch(function(){})};
+  $("#cc").onclick=function(){copy(combo(t,picks),"コピーしたよ。インスタのコメントに貼ってね")};
+  $("#bk").onclick=function(){pickMe(t,picks.slice())};
+}
+/* ---------- 3. 彼が選ぶ ---------- */
+function pickHim(t,her,picks){
+  picks=picks||[-1,-1,-1];
+  var done=picks.every(function(x){return x>=0}), n=her.n||"彼女";
+  app.innerHTML=hero(t,{pin:n+"から、お題が届いたよ",lead:"各行から1つずつ、合計6万円まで<p-q>。</p-q><br>あなたが選ぶと、"+esc(n)+"の答えがひらく<p-q>。</p-q>",extra:'<img class="mochi" src="mochi_pair_heart.svg" alt="">'})+
+    '<div class="from"><img src="mochi_orange_happy.svg" alt=""><div><b>'+esc(n)+'はもう答えたよ。あとはあなた</b><span>'+LOCK+'選ぶと、'+esc(n)+'の答えがひらく</span></div></div>'+
+    board(t,picks,"him")+'<div class="spacer"></div>'+bar(picks,"答え合わせ →",!done);
+  app.querySelectorAll(".cell").forEach(function(b){b.onclick=function(){var r=+b.dataset.r,c=+b.dataset.c;picks[r]=picks[r]===c?-1:c;var y=scrollY;pickHim(t,her,picks);scrollTo(0,y)}});
+  $("#go").onclick=function(){result(t,her.a,picks,n,"him");scrollTo(0,0)};
+}
+/* ---------- 4. 答え合わせ ---------- */
+var VERDICT=["ぜんぶズレた。話すこと、いっぱいあるね","1つだけ一致。ズレたところが、いちばん盛り上がる","2つ一致。かなり似てるふたり","完全一致。もはや同じ人"];
+function result(t,a,b,n,viewer){
+  var same=a.filter(function(x,i){return x===b[i]}).length;
+  var me=viewer==="him"?"あなた":n, mine=viewer==="him"?b:a, other=viewer==="him"?a:b;
+  var meLbl=viewer==="him"?"あなた":"あなた", herLbl=viewer==="him"?n:"あなた", himLbl=viewer==="him"?"あなた":"彼";
+  var rows=t.rows.map(function(r,i){
+    var s=a[i]===b[i];
+    return '<div class="crow"><div class="rn"><b>'+esc(r.name)+'</b><em class="'+(s?"same":"")+'">'+(s?"おなじ！":Math.abs(a[i]-b[i])+"万円ちがう")+'</em></div><div class="pair">'+
+      '<figure><img src="'+img(t,i,a[i])+'" alt=""><figcaption>'+esc(r.labels[a[i]])+'<small>'+(a[i]+1)+'万円</small></figcaption></figure>'+
+      '<figure class="h"><img src="'+img(t,i,b[i])+'" alt=""><figcaption>'+esc(r.labels[b[i]])+'<small>'+(b[i]+1)+'万円</small></figcaption></figure></div></div>';
+  }).join("");
+  var gap=-1,gi=0; t.rows.forEach(function(r,i){var d=Math.abs(a[i]-b[i]);if(d>gap){gap=d;gi=i}});
+  var talk=gap>0?"「"+t.rows[gi].name+"」で"+gap+"万円ちがう。そこにかけた理由、聞いてみて":"ぜんぶ同じ。じゃあ次は、ちがいそうなお題でもう一回";
+  app.innerHTML=hero(t,{pin:"答え合わせ",extra:'<div class="score">3つ中<b>'+same+'</b>つ一致</div><div class="verdict">'+esc(VERDICT[same])+'</div><img class="mochi" src="mochi_pair_hug.svg" alt="">'})+
+    '<section class="cmp"><div class="who"><span><img src="'+MOCHI.me+'" alt="">'+esc(herLbl)+'</span><span><img src="'+MOCHI.him+'" alt="">'+esc(himLbl)+'</span></div>'+rows+'</section>'+
+    '<div class="talk"><svg viewBox="0 0 24 24" fill="none" stroke="#2B1A1F" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h11a3 3 0 0 1 3 3v5a3 3 0 0 1-3 3H9l-4 3v-3H4a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3z"/><path d="M20 9a3 3 0 0 1 3 3v4a3 3 0 0 1-3 3h-1v3l-3-3"/></svg><div><small>答えがそろったよ。話してみよう</small><b>'+esc(talk)+'</b></div></div>'+
+    (viewer==="him"?'<section class="sheet"><h2>結果を'+esc(n)+'にも<p-q>。</p-q></h2><p class="sub">'+esc(n)+'の画面にも、同じ答え合わせがひらきます。</p><div class="acts"><a class="btn line full" id="ln" href="#">LINEで'+esc(n)+'に送る</a><button type="button" class="btn ghost full" id="cp">リンクをコピー</button></div></section>':
+      '<div style="padding:16px 12px 0"><button type="button" class="btn ghost full" id="again">別のお題で、もう一回</button></div>')+
+    appBlock(viewer==="him"?"6man_result_him":"6man_result_her")+foot();
+  if(viewer==="him"){
+    var link=base()+"#r="+b64e({t:t.key,a:a,b:b,n:n});
+    var msg="答え合わせしたよ。"+same+"/3 一致👇\n"+link;
+    $("#ln").onclick=function(e){e.preventDefault();location.href="https://line.me/R/share?text="+encodeURIComponent(msg)};
+    $("#cp").onclick=function(){copy(msg,"リンクをコピーしました")};
+  }else{
+    $("#again").onclick=function(){location.hash="";pickMe(LIVE[0]);scrollTo(0,0)};
+  }
+}
+/* ---------- 入口 ---------- */
+function route(){
+  var h=location.hash.slice(1), m;
+  if((m=h.match(/^p=(.+)$/))){var d=b64d(m[1]);if(d&&d.a&&d.a.length===3){return pickHim(byKey(d.t),d)}}
+  if((m=h.match(/^r=(.+)$/))){var r=b64d(m[1]);if(r&&r.a&&r.b){return result(byKey(r.t),r.a,r.b,r.n||"",'her')}}
+  if((m=h.match(/^t=(\w+)(?:&p=([0-2]{3}))?(&s=1)?$/))){var pk=m[2]?m[2].split("").map(Number):null;return m[3]&&pk?send(byKey(m[1]),pk):pickMe(byKey(m[1]),pk)}
+  pickMe(LIVE[0]);
+}
+route();
+})();
+</script>
+</body>
+</html>
