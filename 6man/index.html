@@ -50,6 +50,12 @@ p-q{margin-right:-.42em}
 .lead{position:relative;margin:16px 0 0;padding-right:84px;font-size:13.5px;font-weight:800;line-height:1.7;color:rgba(255,255,255,.86)}
 .hero .mochi{position:absolute;right:12px;bottom:26px;width:84px;opacity:.98}
 .wave{display:block;width:100%;height:28px;margin-top:-27px;position:relative}
+.steps{position:relative;display:flex;align-items:center;gap:4px;margin:16px 0 0;padding:0;list-style:none;flex-wrap:nowrap}
+.steps li{display:flex;align-items:center;gap:5px;height:32px;padding:0 10px 0 5px;border-radius:16px;background:rgba(255,255,255,.12);font-size:12px;font-weight:900;color:#fff;white-space:nowrap}
+.steps li b{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--kuri);color:var(--ink);font-family:var(--display);font-size:12px}
+.steps li.on{background:#fff;color:var(--ink)}
+.steps i{font-style:normal;color:rgba(255,255,255,.6);font-size:11px}
+.hero:has(.steps) .mochi{display:none}
 
 /* ---------- お題を選ぶ ---------- */
 .themes{padding:4px 0 0}
@@ -227,6 +233,7 @@ function hero(t,opt){
     (opt.pin?'<span class="pin">'+esc(opt.pin)+'</span>':'')+
     '<h1 class="ttl"><span class="l1"><em>6万円</em>で</span><br><span class="l2" style="font-size:min(31px,calc((100vw - 64px)/'+t.title[1].length+'))">'+esc(t.title[1])+'</span></h1>'+
     (opt.lead?'<p class="lead">'+opt.lead+'</p>':'')+
+    (opt.steps?'<ol class="steps" aria-label="あそびかた"><li class="'+(opt.steps===1?'on':'')+'"><b>1</b>あなたが選ぶ</li><i>→</i><li class="'+(opt.steps===2?'on':'')+'"><b>2</b>彼に送る</li><i>→</i><li class="'+(opt.steps===3?'on':'')+'"><b>3</b>彼が当てる</li></ol>':'')+
     (opt.extra||'')+
     '</header>'+WAVE;
 }
@@ -275,7 +282,7 @@ function foot(){return '<footer class="foot">答えはリンクの中だけ。�
 function pickMe(t,picks){
   picks=picks||[-1,-1,-1];
   var done=picks.every(function(x){return x>=0});
-  app.innerHTML=hero(t,{pin:(t.key===LIVE[0].key?"きょうのお題、ここで彼とできるよ":"このお題も、ここで彼とできるよ"),lead:"各行から1つずつ、合計6万円まで<p-q>。</p-q><br>できたら、どれを選んだか<br>彼に当ててもらおう<p-q>。</p-q>",extra:'<img class="mochi" src="mochi_pair_heart.svg" alt="">'})+
+  app.innerHTML=hero(t,{pin:(t.key===LIVE[0].key?"きょうのお題、ここで彼とできるよ":"このお題も、ここで彼とできるよ"),lead:"各行から1つずつ、合計6万円まで<p-q>。</p-q>",steps:1,extra:'<img class="mochi" src="mochi_pair_heart.svg" alt="">'})+
     chips(t)+board(t,picks,"me")+'<p class="note">答えはリンクの中だけ。どこにも保存されません。</p><div class="spacer"></div>'+
     bar(picks,"彼に送る →",!done);
   app.querySelectorAll(".chip").forEach(function(b){b.onclick=function(){pickMe(byKey(b.dataset.k));scrollTo(0,0)}});
@@ -285,7 +292,7 @@ function pickMe(t,picks){
 /* ---------- 2. 彼に送る ---------- */
 function send(t,picks,name){
   var mine=t.rows.map(function(r,i){return '<figure><img src="'+img(t,i,picks[i])+'" alt=""><figcaption>'+esc(r.labels[picks[i]])+'<small>'+esc(r.name)+'・'+(picks[i]+1)+'万円</small></figcaption></figure>'}).join("");
-  app.innerHTML=hero(t,{pin:"あなたの答え、できたよ"})+
+  app.innerHTML=hero(t,{pin:"あなたの答え、できたよ",steps:2})+
     '<section class="sheet"><h2>彼に、当ててもらおう<p-q>。</p-q></h2><p class="sub">あなたがどれを選んだか、彼が同じ表で予想します。当たったかどうかは、彼が選び終わるとひらきます。</p>'+
     '<div class="mine">'+mine+'</div>'+
     
