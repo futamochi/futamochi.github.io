@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#3A1F29">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>6万円の答え合わせ｜ふたもち</title>
+<meta name="description" content="6万円で、どう組む？ 各行から1つずつ選んで、彼にも同じ表を。ふたりの答えは、そろったらひらく。">
+<meta property="og:title" content="どれ選んだか、当ててみて｜6万円の当てっこ">
+<meta property="og:description" content="3つ選ぶだけ。当たったかどうかは、予想し終わるとひらく。">
+<meta property="og:image" content="https://futamochi.github.io/6man/og.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+@font-face{font-family:"FM Display";src:url(fm-display.woff) format("woff");font-weight:900;font-display:swap}
+:root{
+  --azuki:#3A1F29;--azuki-3:#4A2633;--azuki-4:#5C3644;--cream:#FBF6F0;--paper:#FFF8F1;
+  --ink:#2B1A1F;--ink-2:#66575C;--ink-3:#6B5C61;--line:#EEE5DD;
+  --sakura:#FFC9D6;--sakura-1:#FFEEF2;--kuri:#FFE39A;--love:#FF4F6D;--c-sakura:#C9507A;
+  --me:#FF8E5E;--me-t:#B04318;--pt:#8FCBFF;--pt-s:#5EB0F5;--pt-t:#1F6FB8;--fuji:#EFEAFF;
+  --display:"FM Display","Hiragino Maru Gothic ProN","Hiragino Sans",ui-rounded,system-ui,sans-serif;
+  --body:"Hiragino Maru Gothic ProN","Hiragino Sans",ui-rounded,-apple-system,system-ui,sans-serif;
+  --spring:cubic-bezier(.34,1.56,.64,1);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;overflow-x:clip}
+body{background:var(--cream);color:var(--ink);font-family:var(--body);font-weight:700;-webkit-text-size-adjust:100%;line-height:1.6}
+button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:pointer}
+img{display:block;max-width:100%}
+a{color:inherit}
+p-q{margin-right:-.42em}
+.wrap{max-width:440px;margin:0 auto}
+
+/* ---------- hero (LPと同じ: あずきの地に、白とさくらの札) ---------- */
+.hero{position:relative;background:var(--azuki);color:#fff;padding:calc(env(safe-area-inset-top) + 14px) 16px 52px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 60% at 85% 0%,rgba(255,201,214,.16),transparent 60%),radial-gradient(90% 50% at 0% 100%,rgba(143,203,255,.10),transparent 60%);pointer-events:none}
+.brand{position:relative;display:flex;align-items:center;gap:8px;font-family:var(--display);font-size:15px;letter-spacing:.02em}
+.brand img{width:26px;height:26px;border-radius:7px}
+.brand small{font-family:var(--body);font-size:11.5px;font-weight:800;opacity:.72;letter-spacing:.04em}
+.pin{display:inline-block;margin-top:22px;font-size:12.5px;font-weight:900;background:var(--kuri);color:var(--ink);border-radius:9px;padding:3px 10px;transform:rotate(-1.5deg)}
+.ttl{position:relative;margin:12px 0 0;font-family:var(--display);font-weight:900;line-height:1.08;letter-spacing:-.01em}
+.ttl span{display:inline-block;padding:4px 12px 6px;border-radius:12px;box-shadow:0 5px 0 rgba(0,0,0,.18)}
+.ttl .l1{background:#fff;color:var(--ink);font-size:clamp(30px,9vw,38px);transform:rotate(-1.2deg)}
+.ttl .l1 em{font-style:normal;color:var(--love)}
+.ttl .l2{margin-top:6px;background:var(--sakura);color:var(--ink);font-size:clamp(25px,7.4vw,31px);transform:rotate(.8deg)}
+.lead{position:relative;margin:16px 0 0;padding-right:84px;font-size:13.5px;font-weight:800;line-height:1.7;color:rgba(255,255,255,.86)}
+.hero .mochi{position:absolute;right:12px;bottom:26px;width:84px;opacity:.98}
+.wave{display:block;width:100%;height:28px;margin-top:-27px;position:relative}
+.steps{position:relative;display:flex;align-items:center;gap:4px;margin:16px 0 0;padding:0;list-style:none;flex-wrap:nowrap}
+.steps li{display:flex;align-items:center;gap:5px;height:32px;padding:0 10px 0 5px;border-radius:16px;background:rgba(255,255,255,.12);font-size:12px;font-weight:900;color:#fff;white-space:nowrap}
+.steps li b{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--kuri);color:var(--ink);font-family:var(--display);font-size:12px}
+.steps li.on{background:#fff;color:var(--ink)}
+.steps i{font-style:normal;color:rgba(255,255,255,.6);font-size:11px}
+.hero:has(.steps) .mochi{display:none}
+
+/* ---------- お題を選ぶ ---------- */
+.themes{padding:4px 0 0}
+.themes .lbl{padding:0 16px;font-size:12px;font-weight:900;color:var(--c-sakura);letter-spacing:.06em}
+.chips{display:flex;gap:7px;overflow-x:auto;padding:8px 16px 4px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;height:40px;padding:0 13px;border-radius:17px;background:#fff;font-size:13px;font-weight:900;box-shadow:inset 0 0 0 1.5px var(--line);white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--azuki);color:#fff;box-shadow:none}
+.chip .nw{display:inline-block;margin-left:5px;font-size:10px;background:var(--kuri);color:var(--ink);border-radius:6px;padding:0 5px;vertical-align:1px}
+
+/* ---------- 表 ---------- */
+.board{margin:12px 12px 0;border-radius:26px;background:#fff;padding:14px 10px 6px;box-shadow:0 14px 34px rgba(120,60,80,.12),0 0 0 1px rgba(43,26,31,.05)}
+.row{padding:0 2px 12px}
+.row+.row{border-top:1.5px dashed var(--line);padding-top:12px}
+.rh{display:flex;align-items:baseline;justify-content:space-between;padding:0 4px 8px}
+.rh b{font-family:var(--display);font-size:19px;letter-spacing:.01em}
+.rh small{font-size:11.5px;font-weight:900;color:var(--ink-3)}
+.rh small.on{color:var(--c-sakura)}
+.cells{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.cell{position:relative;display:flex;flex-direction:column;border-radius:16px;background:#F7F1EC;padding:4px 4px 0;box-shadow:inset 0 0 0 1.5px var(--line);transition:transform .2s var(--spring),box-shadow .2s,background .2s,opacity .2s;text-align:center}
+.cell:active{transform:scale(.95)}
+.cell .im{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:1/0.86;background:#EFE7E0}
+.cell .im img{width:100%;height:100%;object-fit:cover}
+.cell .pr{position:absolute;left:5px;top:5px;font-family:var(--display);font-size:12px;line-height:1;padding:4px 6px 5px;border-radius:8px;background:rgba(43,26,31,.82);color:#fff}
+.cell .lb{display:flex;align-items:center;justify-content:center;min-height:40px;padding:4px 2px 6px;font-size:12.5px;font-weight:900;line-height:1.25}
+.cell[aria-pressed="true"]{background:var(--sakura-1);box-shadow:inset 0 0 0 2.5px var(--love)}
+.cell .ck{position:absolute;right:-5px;top:-6px;width:28px;height:28px;border-radius:50%;background:var(--me) url(mochi_orange_happy.svg) center/24px no-repeat;box-shadow:0 0 0 2.5px #fff;transform:scale(0);transition:transform .25s var(--spring)}
+.him .cell .ck{background-color:var(--pt-s);background-image:url(mochi_sky_happy.svg)}
+.him .cell[aria-pressed="true"]{background:#EEF6FF;box-shadow:inset 0 0 0 2.5px var(--pt-s)}
+.cell[aria-pressed="true"] .ck{transform:scale(1)}
+.cell[aria-disabled] .im img{opacity:.35;filter:grayscale(.6)}
+.cell[aria-disabled] .lb{opacity:.45}
+.cell[aria-disabled] .im::after{content:"予算オーバー";position:absolute;left:4px;right:4px;bottom:6px;padding:3px 0;border-radius:8px;background:rgba(43,26,31,.85);color:#fff;font-size:10.5px;font-weight:900;text-align:center}
+.note{margin:12px 20px 0;font-size:12px;font-weight:800;color:var(--ink-3);line-height:1.7}
+
+/* ---------- 下の予算バー ---------- */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 -8px 24px rgba(74,38,51,.10);padding:10px 14px calc(env(safe-area-inset-bottom) + 10px)}
+.bar .in{max-width:420px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.bud{flex:1;min-width:0}
+.bud small{display:block;font-size:11px;font-weight:900;color:var(--ink-3)}
+.bud b{font-family:var(--display);font-size:22px;line-height:1.1}
+.coins{display:flex;gap:4px;margin-top:4px}
+.coins i{width:13px;height:13px;border-radius:50%;background:var(--kuri);box-shadow:inset 0 0 0 1.5px #E7C35A}
+.coins i.u{background:#EFE7E0;box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 20px;border-radius:26px;background:var(--azuki);color:#fff;font-family:var(--display);font-size:16px;letter-spacing:.02em;text-decoration:none;box-shadow:0 5px 0 rgba(0,0,0,.18);transition:transform .2s var(--spring),opacity .2s}
+.btn:active{transform:translateY(2px) scale(.98)}
+.btn:disabled{opacity:1;background:#E9E0E3;color:#66575C;box-shadow:none}
+.btn.line{background:#06C755}
+.btn.ghost{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 2px var(--line)}
+.btn.full{width:100%}
+.btn svg{width:18px;height:18px}
+.spacer{height:110px}
+
+/* ---------- 送る ---------- */
+.sheet{margin:14px 12px 0;border-radius:26px;background:#fff;padding:18px 16px;box-shadow:0 14px 34px rgba(120,60,80,.12),0 0 0 1px rgba(43,26,31,.05)}
+.sheet h2{margin:0;font-family:var(--display);font-size:22px;line-height:1.3}
+.sheet .sub{margin:6px 0 0;font-size:12.5px;font-weight:800;color:var(--ink-2)}
+.mine{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:14px}
+.mine figure{margin:0;border-radius:14px;background:var(--sakura-1);padding:4px 4px 6px;text-align:center}
+.mine figure img{border-radius:10px;aspect-ratio:1/0.86;object-fit:cover;width:100%}
+.mine figcaption{margin-top:5px;font-size:11px;font-weight:900;line-height:1.3}
+.mine figcaption small{display:block;color:var(--ink-3);font-size:10px}
+.combo{margin-top:12px;padding:10px 12px;border-radius:14px;background:#F7F1EC;text-align:center}
+.combo small{display:block;font-size:11px;font-weight:900;color:var(--ink-3)}
+.combo b{display:block;margin-top:2px;font-family:var(--display);font-size:clamp(15px,4.6vw,18px);white-space:nowrap}
+.combo button{margin-top:8px;height:32px;padding:0 14px;border-radius:12px;background:#fff;font-size:12px;font-weight:900;box-shadow:inset 0 0 0 1.5px var(--line)}
+.field{margin-top:16px}
+.field label{display:block;font-size:12px;font-weight:900;color:var(--ink-2)}
+.field input{width:100%;height:46px;margin-top:6px;padding:0 14px;border-radius:14px;border:0;background:#F7F1EC;box-shadow:inset 0 0 0 1.5px var(--line);font:inherit;font-size:16px;font-weight:800;color:var(--ink)}
+.field input:focus{outline:none;box-shadow:inset 0 0 0 2.5px var(--love)}
+.acts{display:grid;gap:9px;margin-top:16px}
+.lock{display:flex;align-items:center;gap:8px;margin-top:12px;padding:10px 12px;border-radius:14px;background:#F5EEE7;font-size:12px;font-weight:900;color:var(--ink-2);line-height:1.5}
+.lock svg{flex:none;width:16px;height:16px}
+.back{display:block;margin:6px auto 0;padding:14px 24px;font-size:13px;font-weight:900;color:var(--ink-3);text-decoration:underline;text-underline-offset:3px}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 96px);z-index:30;transform:translate(-50%,20px);opacity:0;padding:9px 16px;border-radius:14px;background:var(--ink);color:#fff;font-size:13px;font-weight:900;transition:.25s;pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- 届いた（彼の画面） ---------- */
+.from{margin:14px 12px 0;display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:18px;background:#fff;box-shadow:0 0 0 1px rgba(43,26,31,.05),0 10px 24px rgba(120,60,80,.08)}
+.from img{width:36px;height:36px}
+.from b{display:block;font-size:13.5px;font-weight:900}
+.from span{display:inline-flex;align-items:center;gap:5px;margin-top:2px;padding:2px 8px;border-radius:8px;background:#F5EEE7;font-size:11.5px;font-weight:900;color:var(--ink-2)}
+.from span svg{width:12px;height:12px}
+
+/* ---------- 答え合わせ ---------- */
+.score{position:relative;margin-top:16px;font-family:var(--display);font-size:20px;line-height:1}
+.score b{font-size:58px;color:var(--kuri);margin:0 4px;vertical-align:-6px}
+.verdict{position:relative;display:inline-block;margin-top:14px;max-width:calc(100% - 70px);font-family:var(--display);font-size:16px;line-height:1.4;background:#fff;color:var(--ink);border-radius:12px;padding:5px 12px 7px;transform:rotate(-1deg);box-shadow:0 4px 0 rgba(0,0,0,.18)}
+.cmp{margin:14px 12px 0;border-radius:26px;background:#fff;padding:12px 10px;box-shadow:0 14px 34px rgba(120,60,80,.12),0 0 0 1px rgba(43,26,31,.05)}
+.who{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 4px 8px;font-size:12px;font-weight:900}
+.who span{display:flex;align-items:center;gap:5px}
+.who img{width:20px;height:20px}
+.crow{padding:10px 2px}
+.crow+.crow{border-top:1.5px dashed var(--line)}
+.crow .rn{display:flex;align-items:center;justify-content:space-between;padding:0 4px 7px}
+.crow .rn b{font-family:var(--display);font-size:17px}
+.crow .rn em{font-style:normal;font-size:11px;font-weight:900;padding:3px 8px;border-radius:8px;background:#F5EEE7;color:var(--ink-2)}
+.crow .rn em.same{background:var(--kuri);color:var(--ink)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pair figure{margin:0;border-radius:14px;padding:4px 4px 6px;background:var(--sakura-1);text-align:center}
+.pair figure.h{background:#EEF6FF}
+.pair img{border-radius:10px;aspect-ratio:1/0.86;object-fit:cover;width:100%}
+.pair figcaption{margin-top:5px;font-size:12px;font-weight:900;line-height:1.3}
+.pair figcaption small{display:block;font-size:10px;color:var(--ink-3)}
+.talk{margin:12px 12px 0;display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:18px;background:var(--fuji)}
+.talk svg{flex:none;width:22px;height:22px;margin-top:2px}
+.talk small{display:block;font-size:11px;font-weight:900;color:var(--ink-2)}
+.talk b{font-size:14px;font-weight:900;line-height:1.5}
+
+/* ---------- ふたもち（遊んだあとにだけ出す） ---------- */
+.app{margin:28px 0 0;padding:26px 16px 8px;background:var(--paper);border-top:1.5px solid var(--line)}
+.app .tag{font-size:13px;font-weight:900;letter-spacing:.06em;color:var(--c-sakura)}
+.app h2{margin:6px 0 0;font-family:var(--display);font-size:clamp(25px,7.2vw,30px);line-height:1.24;letter-spacing:-.01em}
+.app p{margin:10px 0 0;font-size:13.5px;font-weight:800;color:var(--ink-2);line-height:1.75}
+.app .shot{position:relative;margin:16px auto 0;width:min(64%,250px);aspect-ratio:404/600;border-radius:28px;overflow:hidden;box-shadow:0 18px 40px rgba(74,38,51,.18),0 0 0 1px rgba(43,26,31,.06)}
+.app .shot img{width:100%;height:100%;object-fit:cover;object-position:top}
+.store{display:flex;align-items:center;gap:12px;margin-top:18px;padding:12px;border-radius:20px;background:#fff;text-decoration:none;box-shadow:0 0 0 1px rgba(43,26,31,.06),0 10px 24px rgba(120,60,80,.08)}
+.store img{width:56px;height:56px;border-radius:13px}
+.store .t{flex:1;min-width:0}
+.store .t b{display:block;font-size:13.5px;font-weight:900;line-height:1.35}
+.store .t span{display:block;margin-top:2px;font-size:11px;font-weight:800;color:var(--ink-3);line-height:1.4}
+.store .gt{flex:none;height:32px;padding:0 16px;border-radius:16px;background:#EEF0F6;color:#2F6FED;font-size:14px;font-weight:900;line-height:32px}
+.req{margin:10px 0 0;font-size:11.5px;font-weight:800;color:var(--ink-3);line-height:1.6}
+.follow{display:flex;align-items:center;gap:10px;margin:18px 0 0;padding:12px 14px;border-radius:18px;background:#fff;text-decoration:none;box-shadow:0 0 0 1px rgba(43,26,31,.06)}
+.follow img{width:34px}
+.follow b{display:block;font-size:13px;font-weight:900}
+.follow span{font-size:11.5px;font-weight:800;color:var(--ink-3)}
+.foot{padding:22px 16px calc(env(safe-area-inset-bottom) + 28px);font-size:11.5px;font-weight:800;color:var(--ink-3);text-align:center;line-height:1.7}
+.foot a{color:inherit}
+/* ---------- v7: だれと・ごほうび・アプリ案内・開かないとき ---------- */
+.who2{position:relative;display:block;margin-top:10px;font-size:12px;font-weight:900;color:rgba(255,255,255,.88);text-decoration:underline;text-underline-offset:3px}
+.gift{position:relative;display:inline-block;margin-top:12px;padding:4px 12px 5px;border-radius:12px;background:var(--kuri);color:var(--ink);font-size:13px;font-weight:900;transform:rotate(-1deg)}
+.tease{position:relative;display:block;margin-top:12px;font-size:12.5px;font-weight:900;color:var(--sakura)}
+.app .facts{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.app .facts span{padding:4px 10px;border-radius:10px;background:#fff;box-shadow:inset 0 0 0 1.5px var(--line);font-size:12px;font-weight:900}
+.app .facts b{margin-left:3px;color:var(--c-sakura)}
+.pair2{display:flex;align-items:center;gap:8px;margin-top:16px;padding:10px 12px;border-radius:14px;background:#EEF6FF;font-size:12.5px;font-weight:900;line-height:1.5}
+.pair2.ng{background:#F5EEE7;color:var(--ink-2)}
+.pair2 img{flex:none;width:28px}
+.app .go{display:grid;gap:9px;margin-top:14px}
+.app .go .btn{height:56px;font-size:17px}
+.app .go .btn img{width:24px;height:24px;border-radius:6px}
+.app .go .alt{font-size:11.5px;font-weight:800;color:var(--ink-3);text-align:center}
+.gs{position:fixed;inset:0;z-index:40;display:flex;align-items:flex-end}
+.gs-bg{position:absolute;inset:0;background:rgba(43,26,31,.45)}
+.gs-in{position:relative;width:100%;max-width:440px;margin:0 auto;padding:22px 18px calc(env(safe-area-inset-bottom) + 18px);border-radius:24px 24px 0 0;background:#fff}
+.gs-in b{display:block;padding-right:36px;font-family:var(--display);font-size:19px;line-height:1.35}
+.gs-in p{margin:8px 0 0;font-size:13px;font-weight:800;color:var(--ink-2);line-height:1.7}
+.gs-in ol{margin:12px 0 0;padding-left:1.4em;font-size:13.5px;font-weight:900;line-height:1.9}
+.gs-in .nm{display:inline-block;padding:0 8px;border-radius:8px;background:var(--kuri);color:var(--ink);-webkit-user-select:all;user-select:all}
+.gs-x{position:absolute;right:8px;top:6px;width:44px;height:44px;font-size:22px;color:var(--ink-3)}
+[hidden]{display:none!important}
+.nb{display:inline-block}
+.ttl .l2{white-space:nowrap}
+</style>
+<!-- Cloudflare Web Analytics（Cookieなし。答えの中身は送らない） --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "366df031895045e9a147272e0d267678", "spa": true}'></script>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script id="themes" type="application/json">{{THEMES_JSON}}</script>
+<script>
+(function(){
+"use strict";
+var THEMES=JSON.parse(document.getElementById("themes").textContent);
+var PT="127819629"; // App Store Connect のキャンペーン用 provider token（11/4 オーナーOK）
+function store(ct,sc){return (sc||"https:")+"//apps.apple.com/jp/app/id6823712192"+(PT?"?pt="+PT+"&ct="+encodeURIComponent(ct)+"&mt=8":"")}
+var IG="https://www.instagram.com/futamochi.app/";
+/* 見ている端末とアプリ内ブラウザ（外部通信なし） */
+var UA=navigator.userAgent||"", OS=/Android/i.test(UA)?"a":/iPhone|iPad|iPod/i.test(UA)?"i":"x";
+var IOSV=OS==="i"?(+((/OS (\d+)_\d+/.exec(UA)||[])[1])||0):0;
+var OSV=OS==="i"?"i"+IOSV:OS;
+var IAB=/\bLine\//i.test(UA)?"line":/Instagram/i.test(UA)?"instagram":/FBAN|FBAV/i.test(UA)?"facebook":(OS==="i"&&!/Safari\//.test(UA))?"app":"";
+var QS=new URLSearchParams(location.search);
+/* だれと遊ぶか: k=彼女→彼（ふつう）、o=好きな人・友だち、r=彼→彼女（お返しの出題） */
+var WHO=QS.get("w")==="o"?"o":"k", PN="";
+var SENDER={k:"彼女",o:"あの人",r:"彼"}, TAKER={k:"彼",o:"相手",r:"彼女"};
+function pw(){return WHO==="r"?(PN||"彼女"):TAKER[WHO]}
+var $=function(s,r){return (r||document).querySelector(s)};
+var app=$("#app");
+var today=new Date(Date.now()-(18*60+20)*6e4); var tstr=today.getFullYear()+"-"+String(today.getMonth()+1).padStart(2,"0")+"-"+String(today.getDate()).padStart(2,"0");
+var LIVE=THEMES.filter(function(t){return t.date<=tstr}).sort(function(a,b){return a.date<b.date?1:-1});
+if(!LIVE.length) LIVE=THEMES.slice();
+function byKey(k){for(var i=0;i<THEMES.length;i++) if(THEMES[i].key===k) return THEMES[i]; return LIVE[0]}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function nb(s){return esc(s).replace(/[^、。・]+[、。・]?/g,'<span class="nb">$&</span>')}
+function kq(s){return esc(s).replace(/([、。])/g,"<p-q>$1</p-q>")}
+function img(t,r,c){return "cells/"+t.id+"_"+r+c+".webp"}
+function b64e(o){var s=unescape(encodeURIComponent(JSON.stringify(o)));return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")}
+function b64d(s){try{s=s.replace(/-/g,"+").replace(/_/g,"/");return JSON.parse(decodeURIComponent(escape(atob(s))))}catch(e){return null}}
+function combo(t,a){return t.rows.map(function(r,i){return r.name+(a[i]+1)+"万"}).join("・")}
+function sum(a){return a.reduce(function(x,y){return x+(y+1)},0)}
+function toast(m){var e=$("#toast");e.textContent=m;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(function(){e.classList.remove("on")},1800)}
+function copy(text,msg){
+  function ok(){toast(msg||"コピーしました")}
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(ok,fallback)}else fallback();
+  function fallback(){var ta=document.createElement("textarea");ta.value=text;ta.setAttribute("readonly","");ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();try{document.execCommand("copy");ok()}catch(e){prompt("コピーしてね",text)}ta.remove()}
+}
+var HOME=/futamochi\.github\.io$/.test(location.hostname)?"https://futamochi.github.io/6man/":location.origin+location.pathname;
+function base(){return HOME}
+/* 段ごとの数（Cloudflare Web Analytics の SPA 計測）: /6man/e/<段>/ を一瞬だけ通る。答え（# 以降）は計測に乗らない */
+function ev(name){try{if(!/futamochi\.github\.io$/.test(location.hostname))return;var keep=location.pathname+location.search+location.hash;history.pushState(history.state,"","/6man/e/"+name+"/");history.replaceState(history.state,"",keep)}catch(e){}}
+var MOCHI={me:"mochi_orange_happy.svg",him:"mochi_sky_happy.svg"};
+function nextTheme(t){for(var i=0;i<LIVE.length;i++) if(LIVE[i].key!==t.key) return LIVE[i]; return t}
+/* App Store: アプリ内ブラウザでは itms-apps: で直接。開かずにページが見えたままなら、検索のやり方を出す（LPと同じ考え方） */
+function syncCopy(t){var e=document.createElement("span");e.textContent=t;e.contentEditable="true";e.style.cssText="position:fixed;top:0;left:0;opacity:0;white-space:pre;-webkit-user-select:text;user-select:text";document.body.appendChild(e);var r=document.createRange();r.selectNodeContents(e);var s=getSelection();s.removeAllRanges();s.addRange(r);var ok=false;try{ok=document.execCommand("copy")}catch(x){}s.removeAllRanges();e.remove();return ok}
+function goStore(ct){
+  var ok=false;try{ok=syncCopy("ふたもち")}catch(x){}
+  if(!ok&&navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText("ふたもち").catch(function(){});
+  var hid=false;function v(){if(document.visibilityState==="hidden")hid=true}
+  document.addEventListener("visibilitychange",v);
+  location.href=store(ct,IAB?"itms-apps:":"https:");
+  setTimeout(function(){document.removeEventListener("visibilitychange",v);if(!hid&&document.visibilityState==="visible")gsheet(ok)},1400);
+}
+function gsheet(ok){
+  if($("#gs"))return;
+  var ol={line:"「Safariで開く」",instagram:"「外部ブラウザで開く」"}[IAB]||"「ブラウザで開く」";
+  var d=document.createElement("div");d.className="gs";d.id="gs";d.setAttribute("role","dialog");d.setAttribute("aria-modal","true");
+  d.innerHTML='<div class="gs-bg" data-x></div><div class="gs-in"><button type="button" class="gs-x" data-x aria-label="閉じる">×</button>'+
+    '<b>App Storeで「ふたもち」と<span class="nb">検索してね</span></b><p>'+(ok?"名前はコピーしてあるよ。検索に貼りつけるだけ。":"検索に「ふたもち」と入れるだけ。")+'</p>'+
+    '<ol><li>App Storeをひらく</li><li>「検索」をタップ</li><li>貼りつけて、おもちのアイコンを入手</li></ol>'+
+    '<p>貼りつけられないときは、長押しでコピー → <span class="nm">ふたもち</span><br>または、右上の「…」→'+ol+'。</p>'+
+    '<div class="acts"><button type="button" class="btn full" data-x>わかった</button></div></div>';
+  document.body.appendChild(d);
+  d.querySelectorAll("[data-x]").forEach(function(x){x.onclick=function(){d.remove()}});
+}
+var LOCK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+var WAVE='<svg class="wave" viewBox="0 0 400 28" preserveAspectRatio="none" aria-hidden="true"><path d="M0 28V12c40 10 80 14 130 6S230-2 280 6s80 18 120 8v14z" fill="#FBF6F0"/></svg>';
+
+function hero(t,opt){
+  opt=opt||{};
+  return '<header class="hero">'+
+    '<div class="brand"><img src="icon-46@3x.webp" alt="">ふたもち<small>6万円の答え合わせ</small></div>'+
+    (opt.pin?'<span class="pin">'+esc(opt.pin)+'</span>':'')+
+    '<h1 class="ttl"><span class="l1"><em>6万円</em>で</span><br><span class="l2" style="font-size:min(31px,calc((100vw - 64px)/'+t.title[1].length+'))">'+esc(t.title[1])+'</span></h1>'+
+    (opt.lead?'<p class="lead">'+opt.lead+'</p>':'')+
+    (opt.steps?'<ol class="steps" aria-label="あそびかた"><li class="'+(opt.steps===1?'on':'')+'"><b>1</b>あなたが選ぶ</li><i>→</i><li class="'+(opt.steps===2?'on':'')+'"><b>2</b>'+esc(pw())+'に送る</li><i>→</i><li class="'+(opt.steps===3?'on':'')+'"><b>3</b>'+esc(pw())+'が当てる</li></ol>':'')+
+    (opt.extra||'')+
+    '</header>'+WAVE;
+}
+function board(t,picks,side,ask){
+  var html='<section class="board'+(side==="him"?" him":"")+'" aria-label="表">';
+  var left=6-sum(picks.filter(function(x){return x>=0}));
+  t.rows.forEach(function(r,i){
+    var others=picks.filter(function(x,j){return j!==i&&x<0}).length; // まだ選んでいない、ほかの行
+    var budget=left+(picks[i]>=0?picks[i]+1:0);
+    html+='<div class="row"><div class="rh"><b>'+esc(r.name)+'</b><small class="'+(picks[i]>=0?"on":"")+'">'+(picks[i]>=0?(side==="him"?"予想：":"えらんだ：")+(picks[i]+1)+"万円":esc(ask||"1つえらぶ"))+'</small></div><div class="cells">';
+    r.labels.forEach(function(lb,c){
+      var cost=c+1, ok=cost<=budget-others;
+      html+='<button type="button" class="cell" data-r="'+i+'" data-c="'+c+'" aria-pressed="'+(picks[i]===c)+'"'+(ok?"":' data-x="1" aria-disabled="true"')+'>'+
+        '<span class="im"><img src="'+img(t,i,c)+'" alt="" loading="'+(i<1?"eager":"lazy")+'" decoding="async"><span class="pr">'+cost+'万円</span></span>'+
+        '<span class="lb">'+esc(lb)+'</span><i class="ck" aria-hidden="true"></i></button>';
+    });
+    html+='</div></div>';
+  });
+  return html+'</section>';
+}
+function bar(picks,label,disabled){
+  var nleft=picks.filter(function(x){return x<0}).length; if(disabled) label="あと"+nleft+"行えらぶ";
+  var used=sum(picks.filter(function(x){return x>=0})), left=6-used, coins="";
+  for(var i=0;i<6;i++) coins+='<i class="'+(i<used?"":"u")+'"></i>';
+  return '<div class="bar"><div class="in"><div class="bud"><small>のこり</small><b>'+left+'万円</b><div class="coins" aria-hidden="true">'+coins+'</div></div>'+
+    '<button type="button" class="btn" id="go"'+(disabled?" disabled":"")+'>'+label+'</button></div></div>';
+}
+function chips(t){
+  var h='<div class="themes"><div class="lbl">インスタで見たお題をえらぶ</div><div class="chips" role="group" aria-label="お題">';
+  LIVE.forEach(function(x,i){h+='<button type="button" class="chip" data-k="'+x.key+'" aria-pressed="'+(x.key===t.key)+'">'+esc(x.short)+(i===0?'<span class="nw">きょう</span>':'')+'</button>'});
+  return h+'</div></div>';
+}
+var HEAD=["ぜんぶハズレ<p-q>。</p-q><br>伸びしろ<p-q>、</p-q>500問ぶん<p-q>。</p-q>","1つ当たり<p-q>。</p-q><br>のこりは<p-q>、</p-q>毎日ひとつずつ<p-q>。</p-q>","2つ当たり<p-q>。</p-q><br>あとひとつは<p-q>、</p-q>毎日の質問で<p-q>。</p-q>","ぜんぶ当たり<p-q>。</p-q><br>じゃあ<p-q>、</p-q>500問なら？"];
+var INV="ねぇ、これふたりで入れない？ さっきみたいな答え合わせが、毎日ひとつ届くやつ👇\nhttps://futamochi.github.io/?s=share&openExternalBrowser=1";
+function followA(){return '<a class="follow" href="'+IG+'"><img src="mochi_pair_hug.svg" alt=""><span><b>新しい6万円のお題は、毎日18:30ごろ</b><span>インスタ @futamochi.app でフォローしてね</span></span></a>'}
+/* o = {viewer:"him"|"her", same:0-3, p:画面の向こうの人の呼び名, po:その人の端末 "i"|"a"|"x"|undefined} */
+function appBlock(ct,o){
+  o=o||{}; var him=o.viewer==="him", P=o.p||"彼";
+  if(OS==="a"||o.po==="a"){
+    var t=OS==="a"?"ふたもちのアプリは、ふたりともiPhone（iOS 18以降）が必要です。当てっこは、このページでいつでもできるよ。"
+                  :P+"はAndroidみたい。ふたもちのアプリは、ふたりともiPhone（iOS 18以降）が必要なので、いまは使えません。当てっこは、このページでいつでもできるよ。";
+    return '<section class="app" aria-labelledby="h-app"><div class="tag">ふたもち</div><h2 id="h-app">当てっこは<p-q>、</p-q><br>ここでいつでも<p-q>。</p-q></h2><p>'+nb(t)+'</p>'+followA()+'</section>';
+  }
+  var h2=o.same===3?HEAD[3]:him?esc(P)+"の答え<p-q>、</p-q><br>毎日ひとつ<p-q>、</p-q>ひらく<p-q>。</p-q>":HEAD[o.same||0];
+  var lead=him?"ふたもちの「今日の質問」は、毎日ひとつ。ふたりとも答えると、おたがいの答えがひらく。ハズした好みも、少しずつ分かっていく。"
+              :"ふたもちの「今日の質問」は、毎日ひとつ。ふたりとも答えると、答えがそろってひらく。いまの答え合わせが、毎日つづく感じ。";
+  var pi=/^i/.test(o.po||""), pv=+String(o.po||"").slice(1)||0;
+  var pair=pi&&!(pv&&pv<18)?'<div class="pair2"><img src="mochi_pair_heart.svg" alt=""><span>'+nb(P+"もiPhoneみたい。ふたりで使えるよ")+'</span></div>'
+          :pi?'<div class="pair2 ng"><span>'+nb(P+"のiPhoneはiOS "+pv+"みたい。ふたもちはiOS 18以降で使えます")+'</span></div>'
+          :(IOSV&&IOSV<18)?'<div class="pair2 ng"><span>'+nb("このiPhoneはiOS "+IOSV+"みたい。ふたもちはiOS 18以降で使えます")+'</span></div>':'';
+  return '<section class="app" aria-labelledby="h-app"><div class="tag">毎日の答え合わせ</div>'+
+    '<h2 id="h-app">'+h2+'</h2><p>'+nb(lead)+'</p>'+
+    '<div class="facts"><span>今日の質問<b>500問以上</b></span><span>カップル診断<b>13種類</b></span><span>ひとりの購入で<b>ふたりとも</b></span></div>'+
+    '<div class="shot"><img src="real_play_question.jpg" alt="ふたもちの今日の質問の画面" loading="lazy" decoding="async"></div>'+pair+
+    '<div class="go"><button type="button" class="btn full" id="gostore" data-ct="'+esc(ct)+'"><img src="icon-46@3x.webp" alt="">App Storeで見る</button>'+
+    '<span class="alt">開かないときは、App Storeで「ふたもち」と検索</span>'+
+    '<a class="btn ghost full" id="inv" href="#">「これ入れよ」と'+esc(P)+'に送る</a></div>'+
+    '<p class="req">'+nb("ふたりともiPhone（iOS 18以降）が必要です。ダウンロード無料（App内課金あり）。今日の質問・診断などはプレミアム（有料）で、ひとりの購入でふたりとも使えます。年額プランは、はじめての方に7日間のお試しあり（解約しなければ年額に自動更新）。")+'</p>'+
+    followA()+'</section>';
+}
+function bindApp(){
+  var g=$("#gostore");if(g)g.onclick=function(){ev("store_"+g.dataset.ct);goStore(g.dataset.ct)};
+  var iv=$("#inv");if(iv)iv.onclick=function(e){e.preventDefault();ev("invite_app");location.href="https://line.me/R/share?text="+encodeURIComponent(INV)};
+  var tz=$("#tz");if(tz)tz.onclick=function(){var a=$("#h-app");if(a)a.scrollIntoView({behavior:"smooth",block:"start"})};
+}
+function foot(){return '<footer class="foot">答えはリンクの中だけ。どこにも保存されません。<br><a href="https://futamochi.github.io/">ふたもち</a> ・ <a href="https://meojpn.github.io/futamochi-legal/privacy.html">プライバシー</a></footer>'}
+
+/* ---------- 1. 自分で選ぶ ---------- */
+function pickMe(t,picks){
+  picks=picks||[-1,-1,-1];
+  var done=picks.every(function(x){return x>=0});
+  var P=pw();
+  app.innerHTML=hero(t,{pin:WHO==="r"?"今度は、あなたが出題する番":(t.key===LIVE[0].key?"きょうのお題、ここで"+P+"とできるよ":"このお題も、ここで"+P+"とできるよ"),
+      lead:(WHO==="r"?"自分を組むなら、どれ？ ":"")+"各行から1つずつ、合計6万円まで<p-q>。</p-q>",steps:1,
+      extra:(WHO==="r"?'':'<button type="button" class="who2" id="who">'+(WHO==="o"?"彼とやる →":"彼氏がいなくても。好きな人・友だちとやる →")+'</button>')+'<img class="mochi" src="mochi_pair_heart.svg" alt="">'})+
+    chips(t)+board(t,picks,"me")+'<p class="note">答えはリンクの中だけ。どこにも保存されません。</p><div class="spacer"></div>'+
+    bar(picks,P+"に送る →",!done);
+  if($("#who"))$("#who").onclick=function(){WHO=WHO==="o"?"k":"o";var y=scrollY;pickMe(t,picks);scrollTo(0,y)};
+  app.querySelectorAll(".chip").forEach(function(b){b.onclick=function(){pickMe(byKey(b.dataset.k));scrollTo(0,0)}});
+  app.querySelectorAll(".cell").forEach(function(b){b.onclick=function(){if(b.dataset.x){toast("予算が足りないよ。ほかの行を下げてね");return}var r=+b.dataset.r,c=+b.dataset.c;picks[r]=picks[r]===c?-1:c;var y=scrollY;pickMe(t,picks);scrollTo(0,y)}});
+  $("#go").onclick=function(){ev("picked");send(t,picks);scrollTo(0,0)};
+}
+/* ---------- 2. 彼に送る ---------- */
+function send(t,picks,name,gift){
+  var P=pw();
+  var mine=t.rows.map(function(r,i){return '<figure><img src="'+img(t,i,picks[i])+'" alt=""><figcaption>'+esc(r.labels[picks[i]])+'<small>'+esc(r.name)+'・'+(picks[i]+1)+'万円</small></figcaption></figure>'}).join("");
+  app.innerHTML=hero(t,{pin:"あなたの答え、できたよ",steps:2})+
+    '<section class="sheet"><h2>'+esc(P)+'に、当ててもらおう<p-q>。</p-q></h2><p class="sub">'+nb("あなたがどれを選んだか、"+P+"が同じ表で予想します。当たったかどうかは、"+P+"が選び終わるとひらきます。")+'</p>'+
+    '<div class="mine">'+mine+'</div>'+
+    
+    '<div class="field"><label for="nm">'+esc(P)+'の画面に出る、あなたの名前（なくてもOK）</label><input id="nm" maxlength="10" placeholder="'+(WHO==="r"?"例：けんと":"例：あおい")+'" value="'+esc(name||"")+'" autocomplete="off"></div>'+
+    '<div class="field"><label for="gf">ぜんぶ当たったら、ごほうび（なくてもOK）</label><input id="gf" maxlength="16" placeholder="例：アイスおごる" value="'+esc(gift||"")+'" autocomplete="off"></div>'+
+    '<div class="acts"><a class="btn line full" id="ln" href="#">LINEで'+esc(P)+'に送る</a><button type="button" class="btn ghost full" id="cp">リンクをコピー</button>'+(navigator.share?'<button type="button" class="btn ghost full" id="sh">ほかのアプリで送る</button>':'')+'</div>'+
+    '<div class="lock">'+LOCK+'<span>'+nb("あなたの答えは、"+P+"が予想し終わるまでひらきません。")+'</span></div>'+'<div class="combo"><small>インスタのコメントにも書いてね</small><b>'+esc(combo(t,picks))+'</b><button type="button" id="cc">この組み合わせをコピー</button></div>'+
+    '<button type="button" class="back" id="bk">選びなおす</button></section>'+
+    foot();
+  function gv(){return $("#gf").value.trim().slice(0,16)}
+  function link(){var n=$("#nm").value.trim().slice(0,10),o={t:t.key,a:picks,n:n,o:OSV};if(WHO!=="k")o.w=WHO;if(gv())o.g=gv();return base()+"#p="+b64e(o)}
+  function msg(){return "6万円で"+t.title[1]+"\n"+(WHO==="r"?"自分ならこう組んだ。どれか当ててみて":"私がどれ選んだか、当ててみて")+"（3つ選ぶだけ）"+(gv()?"\nぜんぶ当たったら："+gv():"")+"👇\n"+link()}
+  $("#ln").onclick=function(e){e.preventDefault();ev("send_line");location.href="https://line.me/R/share?text="+encodeURIComponent(msg())};
+  $("#cp").onclick=function(){ev("send_copy");copy(msg(),"リンクをコピーしました")};
+  if($("#sh"))$("#sh").onclick=function(){ev("send_share");navigator.share({text:msg()}).catch(function(){})};
+  $("#cc").onclick=function(){ev("copy_combo");copy(combo(t,picks),"コピーしたよ。インスタのコメントに貼ってね")};
+  $("#bk").onclick=function(){pickMe(t,picks.slice())};
+}
+/* ---------- 3. 彼が選ぶ ---------- */
+function pickHim(t,her,picks){
+  picks=picks||[-1,-1,-1];
+  var w=her.w==="o"||her.w==="r"?her.w:"k", done=picks.every(function(x){return x>=0}), n=her.n||SENDER[w];
+  app.innerHTML=hero(t,{pin:n+"から、お題が届いたよ",lead:esc(n)+(w==="r"?"が自分をどう組んだか":"がどれを選んだか")+"、当ててみて<p-q>。</p-q><br>各行から1つずつ、合計6万円まで<p-q>。</p-q>",
+      extra:(her.g?'<span class="gift">ぜんぶ当てたら：'+esc(her.g)+'</span>':'')+'<img class="mochi" src="mochi_pair_heart.svg" alt="">'})+
+    '<div class="from"><img src="mochi_orange_happy.svg" alt=""><div><b>'+esc(n)+'はもう選んだよ。どれだと思う？</b><span>'+LOCK+'予想すると、'+esc(n)+'の答えがひらく</span></div></div>'+
+    board(t,picks,"him",n+"はどれ？")+'<div class="spacer"></div>'+bar(picks,"答え合わせ →",!done);
+  app.querySelectorAll(".cell").forEach(function(b){b.onclick=function(){if(b.dataset.x){toast("予算が足りないよ。ほかの行を下げてね");return}var r=+b.dataset.r,c=+b.dataset.c;picks[r]=picks[r]===c?-1:c;var y=scrollY;pickHim(t,her,picks);scrollTo(0,y)}});
+  $("#go").onclick=function(){ev("him_done");result(t,her.a,picks,n,"him",{w:w,g:her.g,po:her.o});scrollTo(0,0)};
+}
+/* ---------- 4. 答え合わせ ---------- */
+var VERDICT=["ぜんぶハズレ。逆に、話すことが3つある","1つ当たり。ハズレたところが、いちばん盛り上がる","2つ当たり。かなり分かってるふたり","ぜんぶ当たり。もはやエスパー"];
+function result(t,a,b,n,viewer,x){
+  x=x||{}; var w=x.w==="o"||x.w==="r"?x.w:"k", taker=viewer==="him"?"あなた":TAKER[w];
+  var same=a.filter(function(x,i){return x===b[i]}).length;
+  var me=viewer==="him"?"あなた":n, mine=viewer==="him"?b:a, other=viewer==="him"?a:b;
+  var herLbl=viewer==="him"?n:"あなた", himLbl=taker;
+  var rows=t.rows.map(function(r,i){
+    var s=a[i]===b[i];
+    return '<div class="crow"><div class="rn"><b>'+esc(r.name)+'</b><em class="'+(s?"same":"")+'">'+(s?"当たり！":"ハズレ・"+Math.abs(a[i]-b[i])+"万円ちがい")+'</em></div><div class="pair">'+
+      '<figure><img src="'+img(t,i,a[i])+'" alt=""><figcaption>'+esc(r.labels[a[i]])+'<small>'+(a[i]+1)+'万円</small></figcaption></figure>'+
+      '<figure class="h"><img src="'+img(t,i,b[i])+'" alt=""><figcaption>'+esc(r.labels[b[i]])+'<small>'+(b[i]+1)+'万円</small></figcaption></figure></div></div>';
+  }).join("");
+  var gap=-1,gi=0; t.rows.forEach(function(r,i){var d=Math.abs(a[i]-b[i]);if(d>gap){gap=d;gi=i}});
+  var talk=gap>0?"「"+t.rows[gi].name+"」で"+gap+"万円ずれた。なんでそれを選んだか、聞いてみて":"ぜんぶ当たり。じゃあ次は、ちがうお題でもう一回";
+  var P=viewer==="him"?n:taker, po=viewer==="him"?x.po:x.o2, andr=OS==="a"||po==="a";
+  var gift=x.g?'<span class="gift">'+(same===3?"ごほうび確定："+esc(x.g):"ごほうびは、おあずけ（"+esc(x.g)+"）")+'</span><br>':'';
+  app.innerHTML=hero(t,{pin:"答え合わせ",extra:'<div class="score">'+esc(taker)+'の予想、3つ中<b>'+same+'</b>つ当たり</div><div class="verdict">'+nb(VERDICT[same])+'</div><br>'+gift+(andr?'':'<button type="button" class="tease" id="tz">毎日の答え合わせは、ふたもちで ↓</button>')+'<img class="mochi" src="mochi_pair_hug.svg" alt="">'})+
+    '<section class="cmp"><div class="who"><span><img src="'+MOCHI.me+'" alt="">'+esc(herLbl)+'の答え</span><span><img src="'+MOCHI.him+'" alt="">'+esc(himLbl)+'の予想</span></div>'+rows+'</section>'+
+    '<div class="talk"><svg viewBox="0 0 24 24" fill="none" stroke="#2B1A1F" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h11a3 3 0 0 1 3 3v5a3 3 0 0 1-3 3H9l-4 3v-3H4a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3z"/><path d="M20 9a3 3 0 0 1 3 3v4a3 3 0 0 1-3 3h-1v3l-3-3"/></svg><div><small>答えがそろったよ。話してみよう</small><b>'+nb(talk)+'</b></div></div>'+
+    (viewer==="him"?'<section class="sheet"><h2>結果を'+esc(n)+'にも<p-q>。</p-q></h2><p class="sub">'+esc(n)+'の画面にも、同じ答え合わせがひらきます。</p><div class="acts"><a class="btn line full" id="ln" href="#">LINEで'+esc(n)+'に送る</a><button type="button" class="btn ghost full" id="cp">リンクをコピー</button>'+
+        (w==="r"?'':'<button type="button" class="btn ghost full" id="rev">今度は'+esc(n)+'に当てさせる</button>')+'</div></section>'+
+        appBlock("6man_result_him",{viewer:"him",same:same,p:P,po:po})+foot()+
+        '<div class="spacer"></div><div class="bar" id="hb"><div class="in"><div class="bud"><small>'+esc(n)+'は、まだ結果を知らないよ</small><b>3つ中'+same+'つ</b></div><a class="btn line" id="ln2" href="#">LINEで送る</a></div></div>':
+      appBlock("6man_result_her",{viewer:"her",same:same,p:P,po:po})+
+      '<div style="padding:16px 12px 0"><button type="button" class="btn ghost full" id="again">別のお題で、もう一回</button></div>'+foot());
+  bindApp();
+  if(viewer==="him"){
+    var ro={t:t.key,a:a,b:b,n:n,o2:OSV};if(w!=="k")ro.w=w;if(x.g)ro.g=x.g;
+    var link=base()+"#r="+b64e(ro);
+    var msg="予想したよ。3つ中"+same+"つ当たり"+(gap>0?"\n「"+t.rows[gi].name+"」、なんでそれ？":"")+"👇\n"+link;
+    var sendBack=function(e){e.preventDefault();ev("back_line");$("#hb").hidden=true;location.href="https://line.me/R/share?text="+encodeURIComponent(msg)};
+    $("#ln").onclick=sendBack;$("#ln2").onclick=sendBack;
+    $("#cp").onclick=function(){ev("back_copy");copy(msg,"リンクをコピーしました")};
+    if($("#rev"))$("#rev").onclick=function(){ev("reverse");WHO="r";PN=n;location.hash="";pickMe(nextTheme(t));scrollTo(0,0)};
+  }else{
+    $("#again").onclick=function(){ev("again");location.hash="";pickMe(nextTheme(t));scrollTo(0,0)};
+  }
+}
+/* ---------- 入口 ---------- */
+/* 入口の段は、計測の読み込みを待ってから数える */
+function later(n){setTimeout(function(){ev(n)},2500)}
+function route(){
+  var src=QS.get("s"); if(src&&/^\w{1,12}$/.test(src)) later("from_"+src);
+  var h=location.hash.slice(1), m;
+  if((m=h.match(/^p=(.+)$/))){var d=b64d(m[1]);if(d&&d.a&&d.a.length===3){later("him_open");return pickHim(byKey(d.t),d)}}
+  if((m=h.match(/^r=(.+)$/))){var r=b64d(m[1]);if(r&&r.a&&r.b){later("her_result");WHO=r.w==="o"||r.w==="r"?r.w:"k";return result(byKey(r.t),r.a,r.b,r.n||"",'her',r)}}
+  if((m=h.match(/^t=(\w+)(?:&p=([0-2]{3}))?(&s=1)?$/))){var pk=m[2]?m[2].split("").map(Number):null;return m[3]&&pk?send(byKey(m[1]),pk):pickMe(byKey(m[1]),pk)}
+  if(QS.get("t")) return pickMe(byKey(QS.get("t")));
+  pickMe(LIVE[0]);
+}
+route();
+})();
+</script>
+</body>
+</html>

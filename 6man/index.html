@@ -50,12 +50,13 @@ p-q{margin-right:-.42em}
 .lead{position:relative;margin:16px 0 0;padding-right:84px;font-size:13.5px;font-weight:800;line-height:1.7;color:rgba(255,255,255,.86)}
 .hero .mochi{position:absolute;right:12px;bottom:26px;width:84px;opacity:.98}
 .wave{display:block;width:100%;height:28px;margin-top:-27px;position:relative}
-.steps{position:relative;display:flex;align-items:center;gap:4px;margin:16px 0 0;padding:0;list-style:none;flex-wrap:nowrap}
-.steps li{display:flex;align-items:center;gap:5px;height:32px;padding:0 10px 0 5px;border-radius:16px;background:rgba(255,255,255,.12);font-size:12px;font-weight:900;color:#fff;white-space:nowrap}
+.steps{position:relative;display:flex;align-items:center;gap:4px;row-gap:6px;margin:16px 0 0;padding:0;list-style:none;flex-wrap:wrap}
+.steps li{display:flex;align-items:center;gap:4px;height:32px;padding:0 9px 0 5px;border-radius:16px;background:rgba(255,255,255,.12);font-size:12px;font-weight:900;color:#fff;white-space:nowrap}
 .steps li b{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--kuri);color:var(--ink);font-family:var(--display);font-size:12px}
 .steps li.on{background:#fff;color:var(--ink)}
 .steps i{font-style:normal;color:rgba(255,255,255,.6);font-size:11px}
 .hero:has(.steps) .mochi{display:none}
+.hero:has(.steps) .lead{padding-right:0}
 
 /* ---------- お題を選ぶ ---------- */
 .themes{padding:4px 0 0}
@@ -81,6 +82,7 @@ p-q{margin-right:-.42em}
 .cell .im img{width:100%;height:100%;object-fit:cover}
 .cell .pr{position:absolute;left:5px;top:5px;font-family:var(--display);font-size:12px;line-height:1;padding:4px 6px 5px;border-radius:8px;background:rgba(43,26,31,.82);color:#fff}
 .cell .lb{display:flex;align-items:center;justify-content:center;min-height:40px;padding:4px 2px 6px;font-size:12.5px;font-weight:900;line-height:1.25}
+.cell .lb.s{font-size:11.5px;letter-spacing:-.02em}
 .cell[aria-pressed="true"]{background:var(--sakura-1);box-shadow:inset 0 0 0 2.5px var(--love)}
 .cell .ck{position:absolute;right:-5px;top:-6px;width:28px;height:28px;border-radius:50%;background:var(--me) url(mochi_orange_happy.svg) center/24px no-repeat;box-shadow:0 0 0 2.5px #fff;transform:scale(0);transition:transform .25s var(--spring)}
 .him .cell .ck{background-color:var(--pt-s);background-image:url(mochi_sky_happy.svg)}
@@ -121,7 +123,7 @@ p-q{margin-right:-.42em}
 .combo{margin-top:12px;padding:10px 12px;border-radius:14px;background:#F7F1EC;text-align:center}
 .combo small{display:block;font-size:11px;font-weight:900;color:var(--ink-3)}
 .combo b{display:block;margin-top:2px;font-family:var(--display);font-size:clamp(15px,4.6vw,18px);white-space:nowrap}
-.combo button{margin-top:8px;height:32px;padding:0 14px;border-radius:12px;background:#fff;font-size:12px;font-weight:900;box-shadow:inset 0 0 0 1.5px var(--line)}
+.combo button{margin-top:8px;height:40px;padding:0 16px;border-radius:12px;background:#fff;font-size:12px;font-weight:900;box-shadow:inset 0 0 0 1.5px var(--line)}
 .field{margin-top:16px}
 .field label{display:block;font-size:12px;font-weight:900;color:var(--ink-2)}
 .field input{width:100%;height:46px;margin-top:6px;padding:0 14px;border-radius:14px;border:0;background:#F7F1EC;box-shadow:inset 0 0 0 1.5px var(--line);font:inherit;font-size:16px;font-weight:800;color:var(--ink)}
@@ -186,9 +188,9 @@ p-q{margin-right:-.42em}
 .foot{padding:22px 16px calc(env(safe-area-inset-bottom) + 28px);font-size:11.5px;font-weight:800;color:var(--ink-3);text-align:center;line-height:1.7}
 .foot a{color:inherit}
 /* ---------- v7: だれと・ごほうび・アプリ案内・開かないとき ---------- */
-.who2{position:relative;display:block;margin-top:10px;font-size:12px;font-weight:900;color:rgba(255,255,255,.88);text-decoration:underline;text-underline-offset:3px}
+.who2{position:relative;display:block;margin-top:0;padding:13px 0 12px;font-size:12px;font-weight:900;color:rgba(255,255,255,.88);text-decoration:underline;text-underline-offset:3px}
 .gift{position:relative;display:inline-block;margin-top:12px;padding:4px 12px 5px;border-radius:12px;background:var(--kuri);color:var(--ink);font-size:13px;font-weight:900;transform:rotate(-1deg)}
-.tease{position:relative;display:block;margin-top:12px;font-size:12.5px;font-weight:900;color:var(--sakura)}
+.tease{position:relative;display:block;margin-top:2px;padding:12px 0;font-size:12.5px;font-weight:900;color:var(--sakura)}
 .app .facts{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
 .app .facts span{padding:4px 10px;border-radius:10px;background:#fff;box-shadow:inset 0 0 0 1.5px var(--line);font-size:12px;font-weight:900}
 .app .facts b{margin-left:3px;color:var(--c-sakura)}
@@ -207,6 +209,27 @@ p-q{margin-right:-.42em}
 .gs-in ol{margin:12px 0 0;padding-left:1.4em;font-size:13.5px;font-weight:900;line-height:1.9}
 .gs-in .nm{display:inline-block;padding:0 8px;border-radius:8px;background:var(--kuri);color:var(--ink);-webkit-user-select:all;user-select:all}
 .gs-x{position:absolute;right:8px;top:6px;width:44px;height:44px;font-size:22px;color:var(--ink-3)}
+/* ---------- v8: 送る画面（短いヒーロー・相手・ごほうび・下にLINE）・0点・アプリ案内 ---------- */
+.ttl-s{position:relative;margin:12px 0 0;font-family:var(--display);font-size:18px;line-height:1.35}
+.ttl-s em{font-style:normal;color:var(--sakura)}
+.ml{display:flex;align-items:center;gap:6px;margin-top:12px;font-size:11.5px;font-weight:900;color:var(--ink-2)}
+.ml svg{flex:none;width:14px;height:14px}
+.mine{margin-top:6px}
+.fl{margin-top:16px;font-size:12px;font-weight:900;color:var(--ink-2)}
+.to{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px;padding:4px;border-radius:16px;background:#F5EEE7}
+.to button{height:40px;border-radius:12px;font-size:13.5px;font-weight:900;color:var(--ink-2)}
+.to button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:0 2px 6px rgba(74,38,51,.12)}
+.gifts{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.gifts button{height:40px;padding:0 13px;border-radius:14px;background:#fff;font-size:13px;font-weight:900;box-shadow:inset 0 0 0 1.5px var(--line)}
+.gifts button[aria-pressed="true"]{background:var(--kuri);box-shadow:inset 0 0 0 2px #E7C35A}
+.field.gfx{margin-top:8px}
+.alt2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+.alt2 .btn{height:46px;padding:0 8px;font-size:13.5px}
+.alt2 .btn:only-child{grid-column:1/-1}
+.bar .btn.line.full{height:54px;font-size:17px}
+.score b.z{display:inline-block;font-size:40px;margin:6px 0 0;vertical-align:0}
+.app .more{margin:8px 0 0;font-size:12px;color:var(--ink-3);line-height:1.6}
+.app .go .btn small{font-family:var(--body);font-size:12px;font-weight:900;opacity:.8}
 [hidden]{display:none!important}
 .nb{display:inline-block}
 .ttl .l2{white-space:nowrap}
@@ -231,9 +254,12 @@ var OSV=OS==="i"?"i"+IOSV:OS;
 var IAB=/\bLine\//i.test(UA)?"line":/Instagram/i.test(UA)?"instagram":/FBAN|FBAV/i.test(UA)?"facebook":(OS==="i"&&!/Safari\//.test(UA))?"app":"";
 var QS=new URLSearchParams(location.search);
 /* だれと遊ぶか: k=彼女→彼（ふつう）、o=好きな人・友だち、r=彼→彼女（お返しの出題） */
-var WHO=QS.get("w")==="o"?"o":"k", PN="";
-var SENDER={k:"彼女",o:"あの人",r:"彼"}, TAKER={k:"彼",o:"相手",r:"彼女"};
+/* f=友だち（v8）: 好きな人(o)と同じ遊び方で、呼び名と文面とアプリ案内だけ変える */
+function vw(x){return x==="o"||x==="f"||x==="r"?x:"k"}
+var WHO=vw(QS.get("w")==="r"?"":QS.get("w")), PN="";
+var SENDER={k:"彼女",o:"出題者",f:"友だち",r:"彼"}, TAKER={k:"彼",o:"相手",f:"友だち",r:"彼女"};
 function pw(){return WHO==="r"?(PN||"彼女"):TAKER[WHO]}
+function sp(){var x=pw();return x.length<=3?x:"相手"}
 var $=function(s,r){return (r||document).querySelector(s)};
 var app=$("#app");
 var today=new Date(Date.now()-(18*60+20)*6e4); var tstr=today.getFullYear()+"-"+String(today.getMonth()+1).padStart(2,"0")+"-"+String(today.getDate()).padStart(2,"0");
@@ -258,6 +284,7 @@ var HOME=/futamochi\.github\.io$/.test(location.hostname)?"https://futamochi.git
 function base(){return HOME}
 /* 段ごとの数（Cloudflare Web Analytics の SPA 計測）: /6man/e/<段>/ を一瞬だけ通る。答え（# 以降）は計測に乗らない */
 function ev(name){try{if(!/futamochi\.github\.io$/.test(location.hostname))return;var keep=location.pathname+location.search+location.hash;history.pushState(history.state,"","/6man/e/"+name+"/");history.replaceState(history.state,"",keep)}catch(e){}}
+function later(n){setTimeout(function(){ev(n)},2500)}
 var MOCHI={me:"mochi_orange_happy.svg",him:"mochi_sky_happy.svg"};
 function nextTheme(t){for(var i=0;i<LIVE.length;i++) if(LIVE[i].key!==t.key) return LIVE[i]; return t}
 /* App Store: アプリ内ブラウザでは itms-apps: で直接。開かずにページが見えたままなら、検索のやり方を出す（LPと同じ考え方） */
@@ -290,9 +317,10 @@ function hero(t,opt){
   return '<header class="hero">'+
     '<div class="brand"><img src="icon-46@3x.webp" alt="">ふたもち<small>6万円の答え合わせ</small></div>'+
     (opt.pin?'<span class="pin">'+esc(opt.pin)+'</span>':'')+
-    '<h1 class="ttl"><span class="l1"><em>6万円</em>で</span><br><span class="l2" style="font-size:min(31px,calc((100vw - 64px)/'+t.title[1].length+'))">'+esc(t.title[1])+'</span></h1>'+
+    (opt.compact?'<h1 class="ttl-s"><em>6万円</em>で'+esc(t.title[1])+'</h1>':
+    '<h1 class="ttl"><span class="l1"><em>6万円</em>で</span><br><span class="l2" style="font-size:min(31px,calc((100vw - 64px)/'+t.title[1].length+'))">'+esc(t.title[1])+'</span></h1>')+
     (opt.lead?'<p class="lead">'+opt.lead+'</p>':'')+
-    (opt.steps?'<ol class="steps" aria-label="あそびかた"><li class="'+(opt.steps===1?'on':'')+'"><b>1</b>あなたが選ぶ</li><i>→</i><li class="'+(opt.steps===2?'on':'')+'"><b>2</b>'+esc(pw())+'に送る</li><i>→</i><li class="'+(opt.steps===3?'on':'')+'"><b>3</b>'+esc(pw())+'が当てる</li></ol>':'')+
+    (opt.steps?'<ol class="steps" aria-label="あそびかた"><li class="'+(opt.steps===1?'on':'')+'"><b>1</b>選ぶ</li><i>→</i><li class="'+(opt.steps===2?'on':'')+'"><b>2</b>送る</li><i>→</i><li class="'+(opt.steps===3?'on':'')+'"><b>3</b>'+esc(sp())+'が当てる</li></ol>':'')+
     (opt.extra||'')+
     '</header>'+WAVE;
 }
@@ -307,7 +335,7 @@ function board(t,picks,side,ask){
       var cost=c+1, ok=cost<=budget-others;
       html+='<button type="button" class="cell" data-r="'+i+'" data-c="'+c+'" aria-pressed="'+(picks[i]===c)+'"'+(ok?"":' data-x="1" aria-disabled="true"')+'>'+
         '<span class="im"><img src="'+img(t,i,c)+'" alt="" loading="'+(i<1?"eager":"lazy")+'" decoding="async"><span class="pr">'+cost+'万円</span></span>'+
-        '<span class="lb">'+esc(lb)+'</span><i class="ck" aria-hidden="true"></i></button>';
+        '<span class="lb'+(lb.length>=7?' s':'')+'">'+esc(lb)+'</span><i class="ck" aria-hidden="true"></i></button>';
     });
     html+='</div></div>';
   });
@@ -325,31 +353,34 @@ function chips(t){
   LIVE.forEach(function(x,i){h+='<button type="button" class="chip" data-k="'+x.key+'" aria-pressed="'+(x.key===t.key)+'">'+esc(x.short)+(i===0?'<span class="nw">きょう</span>':'')+'</button>'});
   return h+'</div></div>';
 }
-var HEAD=["ぜんぶハズレ<p-q>。</p-q><br>伸びしろ<p-q>、</p-q>500問ぶん<p-q>。</p-q>","1つ当たり<p-q>。</p-q><br>のこりは<p-q>、</p-q>毎日ひとつずつ<p-q>。</p-q>","2つ当たり<p-q>。</p-q><br>あとひとつは<p-q>、</p-q>毎日の質問で<p-q>。</p-q>","ぜんぶ当たり<p-q>。</p-q><br>じゃあ<p-q>、</p-q>500問なら？"];
+var HEAD=["ぜんぶハズレ<p-q>。</p-q><br>伸びしろ<p-q>、</p-q>500問ぶん<p-q>。</p-q>","1つ当たり<p-q>。</p-q><br>知らない答え<p-q>、</p-q>まだ500問<p-q>。</p-q>","2つ当たり<p-q>。</p-q><br>おしい<p-q>。</p-q>続きは500問で<p-q>。</p-q>","ぜんぶ当たり<p-q>。</p-q><br>じゃあ<p-q>、</p-q>500問なら？"];
 var INV="ねぇ、これふたりで入れない？ さっきみたいな答え合わせが、毎日ひとつ届くやつ👇\nhttps://futamochi.github.io/?s=share&openExternalBrowser=1";
 function followA(){return '<a class="follow" href="'+IG+'"><img src="mochi_pair_hug.svg" alt=""><span><b>新しい6万円のお題は、毎日18:30ごろ</b><span>インスタ @futamochi.app でフォローしてね</span></span></a>'}
 /* o = {viewer:"him"|"her", same:0-3, p:画面の向こうの人の呼び名, po:その人の端末 "i"|"a"|"x"|undefined} */
 function appBlock(ct,o){
-  o=o||{}; var him=o.viewer==="him", P=o.p||"彼";
+  o=o||{}; var fr=o.w==="f", him=o.viewer==="him"&&!fr, P=fr?"恋人":(o.p||"彼");
+  if(fr) o.po=undefined;
   if(OS==="a"||o.po==="a"){
     var t=OS==="a"?"ふたもちのアプリは、ふたりともiPhone（iOS 18以降）が必要です。当てっこは、このページでいつでもできるよ。"
                   :P+"はAndroidみたい。ふたもちのアプリは、ふたりともiPhone（iOS 18以降）が必要なので、いまは使えません。当てっこは、このページでいつでもできるよ。";
     return '<section class="app" aria-labelledby="h-app"><div class="tag">ふたもち</div><h2 id="h-app">当てっこは<p-q>、</p-q><br>ここでいつでも<p-q>。</p-q></h2><p>'+nb(t)+'</p>'+followA()+'</section>';
   }
   var h2=o.same===3?HEAD[3]:him?esc(P)+"の答え<p-q>、</p-q><br>毎日ひとつ<p-q>、</p-q>ひらく<p-q>。</p-q>":HEAD[o.same||0];
-  var lead=him?"ふたもちの「今日の質問」は、毎日ひとつ。ふたりとも答えると、おたがいの答えがひらく。ハズした好みも、少しずつ分かっていく。"
-              :"ふたもちの「今日の質問」は、毎日ひとつ。ふたりとも答えると、答えがそろってひらく。いまの答え合わせが、毎日つづく感じ。";
+  var lead=fr?"ふたもちは、恋人とふたりで使うアプリ。「今日の質問」が毎日1問届いて、ふたりとも答えると、おたがいの答えがひらく。"
+          :him?"ふたもちの「今日の質問」は、毎日1問。ふたりとも答えると、おたがいの答えがひらく。ハズした好みも、少しずつ分かっていく。"
+              :"ふたもちの「今日の質問」は、毎日1問。ふたりとも答えると、おたがいの答えがひらく。さっきの答え合わせを、毎日ふたりで。";
   var pi=/^i/.test(o.po||""), pv=+String(o.po||"").slice(1)||0;
-  var pair=pi&&!(pv&&pv<18)?'<div class="pair2"><img src="mochi_pair_heart.svg" alt=""><span>'+nb(P+"もiPhoneみたい。ふたりで使えるよ")+'</span></div>'
+  var pair=pi&&!(pv&&pv<18)?'<div class="pair2"><img src="mochi_pair_heart.svg" alt=""><span>'+nb(P+"もiPhoneみたい。"+(o.w==="o"?"付き合ったら、ふたりで使えるよ":"ふたりで使えるよ"))+'</span></div>'
           :pi?'<div class="pair2 ng"><span>'+nb(P+"のiPhoneはiOS "+pv+"みたい。ふたもちはiOS 18以降で使えます")+'</span></div>'
           :(IOSV&&IOSV<18)?'<div class="pair2 ng"><span>'+nb("このiPhoneはiOS "+IOSV+"みたい。ふたもちはiOS 18以降で使えます")+'</span></div>':'';
   return '<section class="app" aria-labelledby="h-app"><div class="tag">毎日の答え合わせ</div>'+
     '<h2 id="h-app">'+h2+'</h2><p>'+nb(lead)+'</p>'+
-    '<div class="facts"><span>今日の質問<b>500問以上</b></span><span>カップル診断<b>13種類</b></span><span>ひとりの購入で<b>ふたりとも</b></span></div>'+
-    '<div class="shot"><img src="real_play_question.jpg" alt="ふたもちの今日の質問の画面" loading="lazy" decoding="async"></div>'+pair+
-    '<div class="go"><button type="button" class="btn full" id="gostore" data-ct="'+esc(ct)+'"><img src="icon-46@3x.webp" alt="">App Storeで見る</button>'+
-    '<span class="alt">開かないときは、App Storeで「ふたもち」と検索</span>'+
-    '<a class="btn ghost full" id="inv" href="#">「これ入れよ」と'+esc(P)+'に送る</a></div>'+
+    '<div class="facts"><span>今日の質問<b>500問以上</b></span><span>ひとりの購入で<b>ふたりとも</b></span><span>年額は初回<b>7日間お試し</b></span></div>'+
+    '<p class="more">'+nb("ほかにも、カップル診断13種類・ゲーム5つ・ロック画面に届くらくがき")+'</p>'+pair+
+    '<div class="go"><button type="button" class="btn full" id="gostore" data-ct="'+esc(ct)+'"><img src="icon-46@3x.webp" alt="">ふたもちをApp Storeで見る</button>'+
+    '<span class="alt">'+nb("ダウンロード無料（App内課金あり）。開かないときは「ふたもち」で検索")+'</span></div>'+
+    '<div class="shot"><img src="real_play_question.jpg" alt="ふたもちの今日の質問の画面" loading="lazy" decoding="async"></div>'+
+    '<div class="go"><a class="btn ghost full" id="inv" href="#">「これ入れよ」と'+esc(P)+'に送る</a></div>'+
     '<p class="req">'+nb("ふたりともiPhone（iOS 18以降）が必要です。ダウンロード無料（App内課金あり）。今日の質問・診断などはプレミアム（有料）で、ひとりの購入でふたりとも使えます。年額プランは、はじめての方に7日間のお試しあり（解約しなければ年額に自動更新）。")+'</p>'+
     followA()+'</section>';
 }
@@ -366,42 +397,58 @@ function pickMe(t,picks){
   var done=picks.every(function(x){return x>=0});
   var P=pw();
   app.innerHTML=hero(t,{pin:WHO==="r"?"今度は、あなたが出題する番":(t.key===LIVE[0].key?"きょうのお題、ここで"+P+"とできるよ":"このお題も、ここで"+P+"とできるよ"),
-      lead:(WHO==="r"?"自分を組むなら、どれ？ ":"")+"各行から1つずつ、合計6万円まで<p-q>。</p-q>",steps:1,
-      extra:(WHO==="r"?'':'<button type="button" class="who2" id="who">'+(WHO==="o"?"彼とやる →":"彼氏がいなくても。好きな人・友だちとやる →")+'</button>')+'<img class="mochi" src="mochi_pair_heart.svg" alt="">'})+
+      lead:(WHO==="r"?nb("自分を組むなら、どれ？")+"<br>":"")+nb("各行から1つずつ、合計6万円まで。"),steps:1,
+      extra:(WHO==="r"?'':'<button type="button" class="who2" id="who">'+(WHO!=="k"?"彼とやる →":"彼氏がいなくても。好きな人・友だちとやる →")+'</button>')+'<img class="mochi" src="mochi_pair_heart.svg" alt="">'})+
     chips(t)+board(t,picks,"me")+'<p class="note">答えはリンクの中だけ。どこにも保存されません。</p><div class="spacer"></div>'+
     bar(picks,P+"に送る →",!done);
-  if($("#who"))$("#who").onclick=function(){WHO=WHO==="o"?"k":"o";var y=scrollY;pickMe(t,picks);scrollTo(0,y)};
+  if($("#who"))$("#who").onclick=function(){WHO=WHO==="k"?"o":"k";var y=scrollY;pickMe(t,picks);scrollTo(0,y)};
   app.querySelectorAll(".chip").forEach(function(b){b.onclick=function(){pickMe(byKey(b.dataset.k));scrollTo(0,0)}});
   app.querySelectorAll(".cell").forEach(function(b){b.onclick=function(){if(b.dataset.x){toast("予算が足りないよ。ほかの行を下げてね");return}var r=+b.dataset.r,c=+b.dataset.c;picks[r]=picks[r]===c?-1:c;var y=scrollY;pickMe(t,picks);scrollTo(0,y)}});
   $("#go").onclick=function(){ev("picked");send(t,picks);scrollTo(0,0)};
 }
-/* ---------- 2. 彼に送る ---------- */
-function send(t,picks,name,gift){
-  var P=pw();
+/* ---------- 2. 彼に送る（v8: 短いヒーロー→3つ→相手→ごほうび→下に固定のLINE） ---------- */
+var GIFTS=["アイスおごる","肩もみ10分","好きなお菓子"];
+var BODY={k:"私がどれ選んだか、当ててみて",o:"インスタで見つけた当てっこ。私がどれ選んだか、当てられる？",f:"これやって！ 私がどれ選んだか当てて",r:"自分ならこう組んだ。どれか当ててみて"};
+function digits(p){return p.map(function(x){return x+1}).join("")}
+function send(t,picks,name,gift,gw){
+  var P=pw(), rev=WHO==="r", g=gift||"", own=gw||(g&&GIFTS.indexOf(g)<0);
   var mine=t.rows.map(function(r,i){return '<figure><img src="'+img(t,i,picks[i])+'" alt=""><figcaption>'+esc(r.labels[picks[i]])+'<small>'+esc(r.name)+'・'+(picks[i]+1)+'万円</small></figcaption></figure>'}).join("");
-  app.innerHTML=hero(t,{pin:"あなたの答え、できたよ",steps:2})+
-    '<section class="sheet"><h2>'+esc(P)+'に、当ててもらおう<p-q>。</p-q></h2><p class="sub">'+nb("あなたがどれを選んだか、"+P+"が同じ表で予想します。当たったかどうかは、"+P+"が選び終わるとひらきます。")+'</p>'+
-    '<div class="mine">'+mine+'</div>'+
-    
-    '<div class="field"><label for="nm">'+esc(P)+'の画面に出る、あなたの名前（なくてもOK）</label><input id="nm" maxlength="10" placeholder="'+(WHO==="r"?"例：けんと":"例：あおい")+'" value="'+esc(name||"")+'" autocomplete="off"></div>'+
-    '<div class="field"><label for="gf">ぜんぶ当たったら、ごほうび（なくてもOK）</label><input id="gf" maxlength="16" placeholder="例：アイスおごる" value="'+esc(gift||"")+'" autocomplete="off"></div>'+
-    '<div class="acts"><a class="btn line full" id="ln" href="#">LINEで'+esc(P)+'に送る</a><button type="button" class="btn ghost full" id="cp">リンクをコピー</button>'+(navigator.share?'<button type="button" class="btn ghost full" id="sh">ほかのアプリで送る</button>':'')+'</div>'+
-    '<div class="lock">'+LOCK+'<span>'+nb("あなたの答えは、"+P+"が予想し終わるまでひらきません。")+'</span></div>'+'<div class="combo"><small>インスタのコメントにも書いてね</small><b>'+esc(combo(t,picks))+'</b><button type="button" id="cc">この組み合わせをコピー</button></div>'+
+  var to=rev?'':'<div class="fl">だれに当ててもらう？</div><div class="to" role="group" aria-label="送る相手">'+[["k","彼"],["o","好きな人"],["f","友だち"]].map(function(x){return '<button type="button" data-w="'+x[0]+'" aria-pressed="'+(WHO===x[0])+'">'+x[1]+'</button>'}).join("")+'</div>';
+  var gf='<div class="fl">'+esc(P)+'がぜんぶ当てたら、ごほうび（なくてもOK）</div><div class="gifts" role="group" aria-label="ごほうび">'+
+    GIFTS.map(function(x){return '<button type="button" data-g="'+esc(x)+'" aria-pressed="'+(!own&&g===x)+'">'+esc(x)+'</button>'}).join("")+
+    '<button type="button" data-g="*" aria-pressed="'+!!own+'">自分で書く</button></div>'+
+    '<div class="field gfx"'+(own?'':' hidden')+'><input id="gf" maxlength="16" placeholder="例：次のデートは私がおごる" value="'+esc(own?g:"")+'" autocomplete="off" aria-label="ごほうび"></div>';
+  app.innerHTML=hero(t,{pin:"あなたの答え、できたよ",steps:2,compact:1})+
+    '<section class="sheet"><h2>'+esc(P)+'に、当ててもらおう<p-q>。</p-q></h2><p class="sub">'+nb(P+"が同じ表で、あなたの3つを予想します。")+'</p>'+
+    '<div class="ml">'+LOCK+'<span>'+nb(P+"が予想し終わるまで、この答えは見えません")+'</span></div><div class="mine">'+mine+'</div>'+
+    to+gf+
+    '<div class="alt2"><button type="button" class="btn ghost" id="cp">リンクをコピー</button>'+(navigator.share?'<button type="button" class="btn ghost" id="sh">ほかのアプリで</button>':'')+'</div>'+
+    '<div class="field"><label for="nm">'+esc(P)+'の画面に出す、あなたの名前（なくてもOK）</label><input id="nm" maxlength="10" placeholder="'+(rev?"例：けんと":"例：あおい")+'" value="'+esc(name||"")+'" autocomplete="off"></div>'+
+    '<div class="combo"><small>インスタのコメントは、数字3つで</small><b>'+digits(picks)+'</b><small>'+esc(combo(t,picks))+'</small><button type="button" id="cc">「'+digits(picks)+'」をコピー</button></div>'+
     '<button type="button" class="back" id="bk">選びなおす</button></section>'+
-    foot();
-  function gv(){return $("#gf").value.trim().slice(0,16)}
-  function link(){var n=$("#nm").value.trim().slice(0,10),o={t:t.key,a:picks,n:n,o:OSV};if(WHO!=="k")o.w=WHO;if(gv())o.g=gv();return base()+"#p="+b64e(o)}
-  function msg(){return "6万円で"+t.title[1]+"\n"+(WHO==="r"?"自分ならこう組んだ。どれか当ててみて":"私がどれ選んだか、当ててみて")+"（3つ選ぶだけ）"+(gv()?"\nぜんぶ当たったら："+gv():"")+"👇\n"+link()}
+    foot()+'<div class="spacer"></div>'+
+    '<div class="bar"><div class="in"><a class="btn line full" id="ln" href="#">LINEで'+esc(P)+'に送る</a></div></div>';
+  function gv(){var c=app.querySelector('.gifts [aria-pressed="true"]');if(!c)return "";return (c.dataset.g==="*"?$("#gf").value:c.dataset.g).trim().slice(0,16)}
+  function nm(){return $("#nm").value.trim().slice(0,10)}
+  function link(){var o={t:t.key,a:picks,n:nm(),o:OSV};if(WHO!=="k")o.w=WHO;if(gv())o.g=gv();return base()+"#p="+b64e(o)}
+  function msg(){return "6万円で"+t.title[1]+"\n"+BODY[WHO]+"（3つ選ぶだけ・登録なし）"+(gv()?"\nぜんぶ当たったら："+gv():"")+"👇\n"+link()}
+  function again(w){var c=app.querySelector('.gifts [aria-pressed="true"]'),y=scrollY;if(w)WHO=w;send(t,picks,nm(),gv(),c&&c.dataset.g==="*");scrollTo(0,y)}
+  app.querySelectorAll(".to button").forEach(function(b){b.onclick=function(){if(b.dataset.w!==WHO)again(b.dataset.w)}});
+  app.querySelectorAll(".gifts button").forEach(function(b){b.onclick=function(){
+    var on=b.getAttribute("aria-pressed")==="true";
+    app.querySelectorAll(".gifts button").forEach(function(x){x.setAttribute("aria-pressed","false")});
+    if(!on)b.setAttribute("aria-pressed","true");
+    var w=$(".gfx");w.hidden=!(b.dataset.g==="*"&&!on);if(!w.hidden)$("#gf").focus()}});
   $("#ln").onclick=function(e){e.preventDefault();ev("send_line");location.href="https://line.me/R/share?text="+encodeURIComponent(msg())};
   $("#cp").onclick=function(){ev("send_copy");copy(msg(),"リンクをコピーしました")};
   if($("#sh"))$("#sh").onclick=function(){ev("send_share");navigator.share({text:msg()}).catch(function(){})};
-  $("#cc").onclick=function(){ev("copy_combo");copy(combo(t,picks),"コピーしたよ。インスタのコメントに貼ってね")};
-  $("#bk").onclick=function(){pickMe(t,picks.slice())};
+  $("#cc").onclick=function(){ev("copy_combo");copy(digits(picks),"コピーしたよ。インスタのコメントに貼ってね")};
+  $("#bk").onclick=function(){pickMe(t,picks.slice());scrollTo(0,0)};
 }
 /* ---------- 3. 彼が選ぶ ---------- */
 function pickHim(t,her,picks){
   picks=picks||[-1,-1,-1];
-  var w=her.w==="o"||her.w==="r"?her.w:"k", done=picks.every(function(x){return x>=0}), n=her.n||SENDER[w];
+  var w=vw(her.w), done=picks.every(function(x){return x>=0}), n=her.n||SENDER[w];
   app.innerHTML=hero(t,{pin:n+"から、お題が届いたよ",lead:esc(n)+(w==="r"?"が自分をどう組んだか":"がどれを選んだか")+"、当ててみて<p-q>。</p-q><br>各行から1つずつ、合計6万円まで<p-q>。</p-q>",
       extra:(her.g?'<span class="gift">ぜんぶ当てたら：'+esc(her.g)+'</span>':'')+'<img class="mochi" src="mochi_pair_heart.svg" alt="">'})+
     '<div class="from"><img src="mochi_orange_happy.svg" alt=""><div><b>'+esc(n)+'はもう選んだよ。どれだと思う？</b><span>'+LOCK+'予想すると、'+esc(n)+'の答えがひらく</span></div></div>'+
@@ -410,9 +457,10 @@ function pickHim(t,her,picks){
   $("#go").onclick=function(){ev("him_done");result(t,her.a,picks,n,"him",{w:w,g:her.g,po:her.o});scrollTo(0,0)};
 }
 /* ---------- 4. 答え合わせ ---------- */
-var VERDICT=["ぜんぶハズレ。逆に、話すことが3つある","1つ当たり。ハズレたところが、いちばん盛り上がる","2つ当たり。かなり分かってるふたり","ぜんぶ当たり。もはやエスパー"];
+var VERDICT=["逆に、話すことが3つある","ハズレたところが、いちばん盛り上がる","かなり分かってるふたり","もはやエスパー"];
+function hits(n){return n?"3つ中"+n+"つ当たり":"ぜんぶハズレ"}
 function result(t,a,b,n,viewer,x){
-  x=x||{}; var w=x.w==="o"||x.w==="r"?x.w:"k", taker=viewer==="him"?"あなた":TAKER[w];
+  x=x||{}; var w=vw(x.w), taker=viewer==="him"?"あなた":TAKER[w];
   var same=a.filter(function(x,i){return x===b[i]}).length;
   var me=viewer==="him"?"あなた":n, mine=viewer==="him"?b:a, other=viewer==="him"?a:b;
   var herLbl=viewer==="him"?n:"あなた", himLbl=taker;
@@ -426,36 +474,34 @@ function result(t,a,b,n,viewer,x){
   var talk=gap>0?"「"+t.rows[gi].name+"」で"+gap+"万円ずれた。なんでそれを選んだか、聞いてみて":"ぜんぶ当たり。じゃあ次は、ちがうお題でもう一回";
   var P=viewer==="him"?n:taker, po=viewer==="him"?x.po:x.o2, andr=OS==="a"||po==="a";
   var gift=x.g?'<span class="gift">'+(same===3?"ごほうび確定："+esc(x.g):"ごほうびは、おあずけ（"+esc(x.g)+"）")+'</span><br>':'';
-  app.innerHTML=hero(t,{pin:"答え合わせ",extra:'<div class="score">'+esc(taker)+'の予想、3つ中<b>'+same+'</b>つ当たり</div><div class="verdict">'+nb(VERDICT[same])+'</div><br>'+gift+(andr?'':'<button type="button" class="tease" id="tz">毎日の答え合わせは、ふたもちで ↓</button>')+'<img class="mochi" src="mochi_pair_hug.svg" alt="">'})+
+  app.innerHTML=hero(t,{pin:"答え合わせ",extra:'<div class="score">'+esc(taker)+(same?'の予想、3つ中<b>'+same+'</b>つ当たり':'の予想は<br><b class="z">ぜんぶハズレ</b>')+'</div><div class="verdict">'+nb(VERDICT[same])+'</div><br>'+gift+(andr?'':'<button type="button" class="tease" id="tz">毎日の答え合わせは、ふたもちで ↓</button>')+'<img class="mochi" src="mochi_pair_hug.svg" alt="">'})+
     '<section class="cmp"><div class="who"><span><img src="'+MOCHI.me+'" alt="">'+esc(herLbl)+'の答え</span><span><img src="'+MOCHI.him+'" alt="">'+esc(himLbl)+'の予想</span></div>'+rows+'</section>'+
     '<div class="talk"><svg viewBox="0 0 24 24" fill="none" stroke="#2B1A1F" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h11a3 3 0 0 1 3 3v5a3 3 0 0 1-3 3H9l-4 3v-3H4a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3z"/><path d="M20 9a3 3 0 0 1 3 3v4a3 3 0 0 1-3 3h-1v3l-3-3"/></svg><div><small>答えがそろったよ。話してみよう</small><b>'+nb(talk)+'</b></div></div>'+
     (viewer==="him"?'<section class="sheet"><h2>結果を'+esc(n)+'にも<p-q>。</p-q></h2><p class="sub">'+esc(n)+'の画面にも、同じ答え合わせがひらきます。</p><div class="acts"><a class="btn line full" id="ln" href="#">LINEで'+esc(n)+'に送る</a><button type="button" class="btn ghost full" id="cp">リンクをコピー</button>'+
         (w==="r"?'':'<button type="button" class="btn ghost full" id="rev">今度は'+esc(n)+'に当てさせる</button>')+'</div></section>'+
-        appBlock("6man_result_him",{viewer:"him",same:same,p:P,po:po})+foot()+
-        '<div class="spacer"></div><div class="bar" id="hb"><div class="in"><div class="bud"><small>'+esc(n)+'は、まだ結果を知らないよ</small><b>3つ中'+same+'つ</b></div><a class="btn line" id="ln2" href="#">LINEで送る</a></div></div>':
-      appBlock("6man_result_her",{viewer:"her",same:same,p:P,po:po})+
+        appBlock("6man_result_him",{viewer:"him",same:same,p:P,po:po,w:w})+foot()+
+        '<div class="spacer"></div><div class="bar" id="hb"><div class="in"><div class="bud"><small>'+esc(n)+'は、まだ結果を知らないよ</small><b>'+(same?"3つ中"+same+"つ":"ぜんぶハズレ")+'</b></div><a class="btn line" id="ln2" href="#">LINEで送る</a></div></div>':
+      appBlock("6man_result_her",{viewer:"her",same:same,p:P,po:po,w:w})+
       '<div style="padding:16px 12px 0"><button type="button" class="btn ghost full" id="again">別のお題で、もう一回</button></div>'+foot());
   bindApp();
   if(viewer==="him"){
     var ro={t:t.key,a:a,b:b,n:n,o2:OSV};if(w!=="k")ro.w=w;if(x.g)ro.g=x.g;
     var link=base()+"#r="+b64e(ro);
-    var msg="予想したよ。3つ中"+same+"つ当たり"+(gap>0?"\n「"+t.rows[gi].name+"」、なんでそれ？":"")+"👇\n"+link;
+    var msg="予想したよ。"+hits(same)+(gap>0?"\n「"+t.rows[gi].name+"」、なんでそれ？":"")+"👇\n"+link;
     var sendBack=function(e){e.preventDefault();ev("back_line");$("#hb").hidden=true;location.href="https://line.me/R/share?text="+encodeURIComponent(msg)};
     $("#ln").onclick=sendBack;$("#ln2").onclick=sendBack;
     $("#cp").onclick=function(){ev("back_copy");copy(msg,"リンクをコピーしました")};
-    if($("#rev"))$("#rev").onclick=function(){ev("reverse");WHO="r";PN=n;location.hash="";pickMe(nextTheme(t));scrollTo(0,0)};
+    if($("#rev"))$("#rev").onclick=function(){ev("reverse");WHO=w==="k"?"r":w;PN=n;location.hash="";pickMe(nextTheme(t));scrollTo(0,0)};
   }else{
     $("#again").onclick=function(){ev("again");location.hash="";pickMe(nextTheme(t));scrollTo(0,0)};
   }
 }
 /* ---------- 入口 ---------- */
-/* 入口の段は、計測の読み込みを待ってから数える */
-function later(n){setTimeout(function(){ev(n)},2500)}
 function route(){
   var src=QS.get("s"); if(src&&/^\w{1,12}$/.test(src)) later("from_"+src);
   var h=location.hash.slice(1), m;
   if((m=h.match(/^p=(.+)$/))){var d=b64d(m[1]);if(d&&d.a&&d.a.length===3){later("him_open");return pickHim(byKey(d.t),d)}}
-  if((m=h.match(/^r=(.+)$/))){var r=b64d(m[1]);if(r&&r.a&&r.b){later("her_result");WHO=r.w==="o"||r.w==="r"?r.w:"k";return result(byKey(r.t),r.a,r.b,r.n||"",'her',r)}}
+  if((m=h.match(/^r=(.+)$/))){var r=b64d(m[1]);if(r&&r.a&&r.b){later("her_result");WHO=vw(r.w);return result(byKey(r.t),r.a,r.b,r.n||"",'her',r)}}
   if((m=h.match(/^t=(\w+)(?:&p=([0-2]{3}))?(&s=1)?$/))){var pk=m[2]?m[2].split("").map(Number):null;return m[3]&&pk?send(byKey(m[1]),pk):pickMe(byKey(m[1]),pk)}
   if(QS.get("t")) return pickMe(byKey(QS.get("t")));
   pickMe(LIVE[0]);
